@@ -1,0 +1,83 @@
+body{
+	background-color: 999999;
+	font-family: Verdana;
+}
+
+#conteudo{
+	text-align: center;
+	margin: auto;
+	width: 90%;
+	height: 95%;
+	background-color: DDDDDD;
+	border-radius: 8px;
+}
+
+#cabecalho{
+	text-align: center;
+}
+
+#corpo{
+	background-color: FFFFFF;
+	height: 70%;
+	overflow: auto;
+}
+
+#barralateral{
+	background-color: EEEEEE;
+	width: 10%;
+	height: 70%;
+	float: left;
+	overflow: auto;
+	border-radius: 8px;
+}
+
+a{
+	text-decoration: none;
+}
+#entrada {
+	height: 10%;
+}
+
+#area_miniatura{
+	width: 20%;
+	float: left;
+}
+#titulo{
+	width:80%;
+	float: center-left;
+}
+.botao{
+	width: 100px;
+	height: 100px;
+	padding: 12px 20px;
+	vertical-align: middle;
+	box-sizing: border-box;
+	border: 1px solid #000;
+	border-radius: 8px;
+}
+.campo{
+	vertical-align: top;
+	width: 100px;
+}
+
+.campo2{
+	width: 500px;
+}
+
+.textArea {
+  width: 50%;
+  height: 100px;
+  vertical-align: middle;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+.miniatura{
+	width: 80px;
+	border-radius: 80px;
+	
+}
