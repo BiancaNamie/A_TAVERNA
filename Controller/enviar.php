@@ -1,6 +1,5 @@
 <?php
-session_start();
-
+include_once("sessionCheker.php");
 include_once("conect.php");
 
 $usuario = mysqli_real_escape_string($conn, $_SESSION['usuario']);

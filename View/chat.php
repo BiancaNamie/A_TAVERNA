@@ -1,5 +1,4 @@
 <?php
-	session_start();
 	include_once("../Controller/conect.php");
 	include_once("../Controller/sessionCheker.php");
 	
@@ -8,7 +7,7 @@
 	<head>
 		<title>A taverna</Title>
 		<link rel="stylesheet" href="estilo.css?<?php echo time(); ?>"/>
-		<script src="jquery-3.4.0.min.js" type="text/javascript"></script>
+		<script src="../jquery-3.4.0.min.js" type="text/javascript"></script>
 		<script type="text/javascript">
 		
 			setInterval("atualizar()", 700);
@@ -48,14 +47,17 @@
 			</div>
 			
 			<div id = "corpo">
-				
+				<script type="text/javascript">
+					atualizar();
+					scroll();
+				</script>
 			
 			</div>
 			 
 			<div id="entrada">
 				<form method="post" id="envio">
 					<textarea class = "textArea" id = "mensagem" name="mensagem" class = "textArea"></textarea>
-					<button type="reset" text="submit" class ="botao" onCLick="enviar()">Enviar</button>
+					<button type="reset" class ="botao" onClick="enviar()">Enviar</button>
 				</form>
 			</div>
 		

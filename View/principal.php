@@ -1,7 +1,6 @@
 <html>
 	<head>
 		<?php 
-			session_start();
 			include_once("../Controller/sessionCheker.php");
 		?>
 		<title>Seja bem vindo</title>
