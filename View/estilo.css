@@ -2,6 +2,12 @@ body{
 	background-color: 999999;
 	font-family: Verdana;
 }
+li {
+	text-decoration: none;
+}
+a{
+	text-decoration: none;
+}
 
 #conteudo{
 	text-align: center;
@@ -24,6 +30,7 @@ body{
 
 #barralateral{
 	background-color: EEEEEE;
+	text-align: left;
 	width: 10%;
 	height: 70%;
 	float: left;
@@ -31,8 +38,24 @@ body{
 	border-radius: 8px;
 }
 
-a{
-	text-decoration: none;
+#barralateralDireita{
+	background-color: EEEEEE;
+	text-align: left;
+	width: 10%;
+	height: 70%;
+	float: right;
+	overflow: auto;
+	border-radius: 8px;
+}
+
+#barraChats{
+	background-color: DADADA;
+	width: 10%;
+	height: 70%;
+	float: left;
+	overflow: auto;
+	text-align: left;
+
 }
 #entrada {
 	height: 10%;

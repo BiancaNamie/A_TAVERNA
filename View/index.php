@@ -28,7 +28,7 @@
 				<form method="POST" id = "formLogin" action="../Controller/login.php">
 					Apelido:<br>
 					<input type="text" id = "nome" name= "nome"/><br/><br/>
-					Senha; <br>
+					Senha: <br>
 					<input type= "password" id= "senha" name="senha"/><br/><br/>
 					<input type="submit" value="entrar" class ="botao"/><br/><br/>
 				</form>
