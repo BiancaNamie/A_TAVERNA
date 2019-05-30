@@ -42,7 +42,11 @@
 				<?php
 					echo $_SESSION['usuario'];
 				?>
-				<a href="../Controller/logout.php">Sair</a>
+				 |
+				<a href=#> criar sala</a> | 
+				<a href=#> adicionar amigos</a> |
+				<a href=#> ver perfil</a> |
+				<a href="../Controller/logout.php">Sair</a> |
 			</div>
 			
 			<div id="barraLateral">
@@ -61,7 +65,7 @@
 						$result = mysqli_query($conn, $consulta);
 						while($ln = mysqli_fetch_array($result)){
 							$nome = $ln['nome'];
-							echo "<br/> <a href = ../Controller/visualizador.php?id='$ln[id]'>$nome<a/>";
+							echo "<br/> <a target = '_blank' href = ../Controller/visualizador.php?id='$ln[id]'>$nome<a/>";
 						}
 						
 
@@ -73,6 +77,10 @@
 				<br/><a href="Chat.php">Chat inicial</a>
 				<br/><a href="ChatRPG.php">Chat RPG</a>
 
+			</div>
+
+			<div id = "barra inferior">
+				
 			</div>
 			
 			<div id="corpo">

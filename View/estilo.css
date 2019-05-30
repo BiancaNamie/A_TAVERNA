@@ -20,11 +20,12 @@ a{
 
 #cabecalho{
 	text-align: center;
+	min-height: 10%;
 }
 
 #corpo{
 	background-color: FFFFFF;
-	height: 70%;
+	height: 80%;
 	overflow: auto;
 }
 
@@ -32,29 +33,33 @@ a{
 	background-color: EEEEEE;
 	text-align: left;
 	width: 10%;
-	height: 70%;
+	height: 80%;
 	float: left;
 	overflow: auto;
-	border-radius: 8px;
 }
 
 #barralateralDireita{
 	background-color: EEEEEE;
 	text-align: left;
 	width: 10%;
-	height: 70%;
+	height: 80%;
 	float: right;
 	overflow: auto;
-	border-radius: 8px;
 }
 
 #barraChats{
 	background-color: DADADA;
 	width: 10%;
-	height: 70%;
+	height: 80%;
 	float: left;
 	overflow: auto;
 	text-align: left;
+
+}
+#barraInferior{
+ width: 20%;
+ background-color: DDDDDD;
+
 
 }
 #entrada {
