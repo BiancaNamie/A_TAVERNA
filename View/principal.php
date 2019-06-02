@@ -55,7 +55,7 @@
 				<li id="lista"><a href=# onclick = "submenu('barraChats');getChat('barraChats')">teste1</a></li>
 			</div>
 			<div id="barraLateralDireita">
-				<br/><li id="lista">Membros</li>
+				<br/><li id="lista">Repositorio</li>
 				<form type= "file" method="Post" enctype="multipart/form-data" action ="../Controller/enviaArquivo.php">
 					<input type="file" name="arquivo"><br/>
 					<input type="submit" name="enviarArquivo"><br/>

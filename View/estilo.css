@@ -13,14 +13,15 @@ a{
 	text-align: center;
 	margin: auto;
 	width: 90%;
-	height: 95%;
+	height: 100%;
 	background-color: DDDDDD;
 	border-radius: 8px;
 }
 
 #cabecalho{
 	text-align: center;
-	min-height: 10%;
+	height: 10%;
+	width: 100%;
 }
 
 #corpo{
@@ -36,6 +37,7 @@ a{
 	height: 80%;
 	float: left;
 	overflow: auto;
+
 }
 
 #barralateralDireita{
