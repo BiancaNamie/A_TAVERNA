@@ -20,6 +20,15 @@
             		e.style.display = 'block';
        		}
 
+       		function exibeChat(){
+
+       			atualizar();
+       		}
+
+       		function atualizar(){	
+			  $.get("../Controller/bloco.php", function(data) {$("#corpo").html(data);});
+			}
+
        		function getSala(){	
 			  $.get("../Controller/salas.php", function(data) {$("#barraLateral").html(data);});
 			}
@@ -32,7 +41,7 @@
 				$.get("../Controller/chats.php", function(data) {$(sala).html(data);});
 			}
 
-			//getSala();
+			getSala();
 			
 		</script>
 	</head>
@@ -44,7 +53,8 @@
 				?>
 				 |
 				<a href=#> criar sala</a> | 
-				<a href=#> adicionar amigos</a> |
+				<a href=#> amigos</a> |
+				<a href=#> notificações</a> |
 				<a href=#> ver perfil</a> |
 				<a href="../Controller/logout.php">Sair</a> |
 			</div>
@@ -52,7 +62,7 @@
 			<div id="barraLateral">
 				<br/>
 				<li id="lista">Home</li>
-				<li id="lista"><a href=# onclick = "submenu('barraChats');getChat('barraChats')">teste1</a></li>
+				<li id="lista"><a href=# onclick = "submenu('barraChats')">teste1</a></li>
 			</div>
 			<div id="barraLateralDireita">
 				<br/><li id="lista">Repositorio</li>
@@ -74,7 +84,7 @@
 				</form>
 			</div>
 			<div id ="barraChats" style = "display: none;">
-				<br/><a href="Chat.php">Chat inicial</a>
+				<br/><a href=# onclick="exibeChat()">Chat inicial</a>
 				<br/><a href="ChatRPG.php">Chat RPG</a>
 
 			</div>
@@ -84,6 +94,10 @@
 			</div>
 			
 			<div id="corpo">
+				<br/>
+				<br/>
+				<br/>
+				As mensagens dos chats que vc participa aparecerão aqui
 				
 			</div>
 		</div>

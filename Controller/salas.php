@@ -1,22 +1,23 @@
 <?php
+	session_start();
 	include_once("conect.php");
-	$select = "SELECT * FROM sala";
+
+
+	$idUsuario = $_SESSION['id'];
+	$select = "SELECT * FROM sala s JOIN participa p ON s.id = p.idSala WHERE p.idUsuario = $idUsuario";
 	$consulta = mysqli_query($conn, $select);
+
+
 	while($ln = mysqli_fetch_array($consulta)){
 		$nome = $ln['nome'];
 		$id = $ln['id'];
 		$sala = "sala$id";
 		$chats = $sala.'chats';
 
-		$html= "<div id='sala$id'>".
-					'<br/>#'.
-					"<a href='#' onclick =".'"submenu(\''."$chats".'\')">'.
-					"$nome".
-					'</a>'.
-					"<div id= '$chats'>".
-					"</div>".
-				"</div>";
+		$html= "<br/>
+				<div id='sala$id'>".
+					'<a href="#" onclick = \'submenu("barraChats")\'>'."$nome <a/>
+				</div>";
 		echo $html;
-		echo "<script type='text/javascript'>getChat('$sala');</script>";
 	}
 ?>

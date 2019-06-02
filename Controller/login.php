@@ -11,10 +11,13 @@
 	echo $sql;
 	$result = mysqli_query($conn, $sql);
 	$rows = mysqli_num_rows($result);
+	$ln = mysqli_fetch_array($result);
 		
 		
 	if ($rows == 1 ) {
+			$id=$ln['id'];
 			$_SESSION['usuario']= $nome;
+			$_SESSION['id']= $id;
 			header("Location: ../View/principal.php");
 			echo "Login realizado";
 	}
