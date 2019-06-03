@@ -14,18 +14,9 @@
 		$sala = "sala$id";
 		$chats = $sala.'chats';
 
-		if($ln['tipo'] = "ADM"){
-			$edit= '<a href="#" onclick="editarSala('.$id.')">edit<a/>';
-		}
-		else{
-			$edit = '';
-		}
-
 		$html= "<br/>
 				<div id='sala$id'>".
-					'<a href="#" onclick = "getChat('.$id.');">'."$nome <a/>"
-					.$edit.
-
+					'<a href="#" onclick = "getChat('.$id.');">'."$nome <a/>".
 				"</div>";
 		echo $html;
 	}
