@@ -26,7 +26,7 @@
 				-->
 				Descricao<br/>
 				<textarea name="descricao" class = "textArea"></textarea><br/>
-				<input type="submit" value="Criar Sala" class="botao">
+				<input type="submit" value="Criar Sala" >
 			</form>
 		</div>
 	</div>

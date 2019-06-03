@@ -63,7 +63,7 @@
 		<div id="popup" style="display: none">
 		</div>
 		<div id= "conteudo">
-			<div id="cabeçalho">
+			<div id="cabecalho">
 				<?php
 					echo $_SESSION['usuario'];
 				?>
@@ -73,7 +73,7 @@
 				<a href=#> notificações</a> |
 				<a href=#> ver perfil</a> |
 				<a href="../Controller/logout.php">Sair</a> |
-				
+
 			</div>
 			
 			<div id="barraLateral">
