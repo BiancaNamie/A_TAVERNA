@@ -155,3 +155,24 @@ a{
 	border-radius: 80px;
 	
 }
+
+#msgSpacing{
+	float: top;
+	width: 100%;
+	padding: 5px 5px;
+	overflow: hidden;
+}
+
+.balao{
+	box-sizing: border-box;
+	padding: 5px 5px;
+	word-wrap: break-word;
+	min-width:20px;
+	min-height: 30px;
+	max-width: 50%;
+	background-color: DDDDEE;
+	border-radius: 8px;
+	border: solid;
+	border-width: 1px;
+	border-color: CCCCDD;
+}

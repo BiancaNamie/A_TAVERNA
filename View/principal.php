@@ -73,6 +73,7 @@
 				<a href=#> notificações</a> |
 				<a href=#> ver perfil</a> |
 				<a href="../Controller/logout.php">Sair</a> |
+				
 			</div>
 			
 			<div id="barraLateral">
@@ -86,7 +87,7 @@
 					<input type="submit" name="enviarArquivo"><br/>
 
 					<?php
-						$consulta = "select * from arquivo";
+						$consulta = "SELECT * FROM arquivo";
 						$result = mysqli_query($conn, $consulta);
 						while($ln = mysqli_fetch_array($result)){
 							$nome = $ln['nome'];

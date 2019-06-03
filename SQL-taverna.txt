@@ -30,12 +30,6 @@ CREATE TABLE Participa (
     tipo VARCHAR(10)
 );
 
-CREATE TABLE Repositorio (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    idSala INTEGER,
-    conteudos BLOB
-);
-
 CREATE TABLE Mensagem (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     idChat INTEGER,
@@ -46,14 +40,14 @@ CREATE TABLE Mensagem (
 
 CREATE TABLE arquivo (
     id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    chatId INTEGER,
+    salaId INTEGER,
     nome VARCHAR(100),
     tipo VARCHAR(10),
-    arquivo BLOB);
+    arquivo LONGBLOB);
 
 ALTER TABLE Arquivo ADD CONSTRAINT FK_Arquivo_0
     FOREIGN KEY (chatId)
-    REFERENCES Chat (id);
+    REFERENCES Sala (id);
  
 ALTER TABLE Chat ADD CONSTRAINT FK_Chat_0
     FOREIGN KEY (idSala)
@@ -64,10 +58,6 @@ ALTER TABLE Participa ADD CONSTRAINT FK_Participa_0
     REFERENCES Usuario (id);
  
 ALTER TABLE Participa ADD CONSTRAINT FK_Participa_1
-    FOREIGN KEY (idSala)
-    REFERENCES Sala (id);
- 
-ALTER TABLE Repositorio ADD CONSTRAINT FK_Repositorio_1
     FOREIGN KEY (idSala)
     REFERENCES Sala (id);
  

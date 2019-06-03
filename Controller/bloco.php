@@ -11,7 +11,23 @@
 	while($ln = mysqli_fetch_array($consulta)){
 		$usuario = $ln['usuario'];
 			$mensagem = $ln['mensagem'];
-			echo"<br/>$usuario: $mensagem";
+			if($usuario == $_SESSION['usuario']){
+				$float = 'right';
+				$from ="";
+			}
+			else{
+				$float = 'left';
+				$from = $usuario.'<br/>';
+			}
+
+			echo"
+				<div id='msgSpacing'>
+					<div class ='balao' style= 'float: $float; text-align: left;'>
+						$from $mensagem
+					</div>
+				</div>";
+
+
 	}
 
 
