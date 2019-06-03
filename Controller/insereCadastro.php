@@ -12,7 +12,7 @@ $email = $conn->real_escape_string($_POST['email']);
 $senha = $conn->real_escape_string($_POST['senha']);
  
 // Attempt insert query execution
-$sql = "INSERT INTO usuario VALUES ( '$nome', '$sobrenome', '$DataNascimento', '$email','$apelido', '$senha')";
+$sql = "INSERT INTO usuario VALUES ( default, '$nome', '$sobrenome','$DataNascimento','$apelido','$email','$senha')";
 if($conn->query($sql) === true){
     echo "Records inserted successfully.";
 	echo '<script language="javascript">';

@@ -4,7 +4,10 @@ include_once("conect.php");
 
 $usuario = mysqli_real_escape_string($conn, $_SESSION['usuario']);
 $mensagem =  mysqli_real_escape_string($conn, $_POST['mensagem']);
-$sql = "insert into mensagem (usuario, mensagem,chat) values('$usuario', '$mensagem', 1)";
+$chat = $_SESSION['chat'];
+
+
+$sql = "INSERT INTO mensagem  VALUES (DEFAULT, '$chat', '$usuario', '$mensagem')";
 
 if(isset($_POST['mensagem'])){
 

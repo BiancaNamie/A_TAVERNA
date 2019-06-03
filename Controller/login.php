@@ -18,6 +18,9 @@
 			$id=$ln['id'];
 			$_SESSION['usuario']= $nome;
 			$_SESSION['id']= $id;
+			$_SESSION['sala']= "";
+			$_SESSION['chat']="";
+
 			header("Location: ../View/principal.php");
 			echo "Login realizado";
 	}

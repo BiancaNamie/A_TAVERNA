@@ -12,33 +12,46 @@
 
 			//setInterval("getSala()",500);
 
+
 			function submenu(id){
 				var e = document.getElementById(id);
-        		if(e.style.display == 'block')
-            		e.style.display = 'none';
-        		else
+        		if(e.style.display == 'none')
             		e.style.display = 'block';
        		}
+       		function hide(id){
+       			var e = document.getElementById(id);
+       			if(e.style.display == 'block')
+            		e.style.display = 'none';
 
-       		function exibeChat(){
-
-       			atualizar();
        		}
-
-       		function atualizar(){	
-			  $.get("../Controller/bloco.php", function(data) {$("#corpo").html(data);});
+       		function enviar(){
+       			var mensagem = document.forms["envio"]["mensagem"].value;
+				$.ajax({type: 'POST',url: '../Controller/enviar.php',data:{mensagem: mensagem}});
+       		}
+       		function exibeChat(id){
+       			
+       			var b = document.getElementById('entrada');
+       			b.style.display ='block'
+       			atualizar(id);
+       			var interval;
+				$(document).on('ready',function(){interval = setInterval(atualizar(id),3000);});
+       		}
+       		function atualizar(id){	
+			  $.get("../Controller/bloco.php",{id:id}).done(function(data) {$("#corpo").html(data);});
 			}
 
        		function getSala(){	
 			  $.get("../Controller/salas.php", function(data) {$("#barraLateral").html(data);});
 			}
-			
 			function getChat(id){
-				p1 ="#";
-				p2="chats";
-				sala = p1.concat(id);
-				sala = sala.concat(p2);
-				$.get("../Controller/chats.php", function(data) {$(sala).html(data);});
+				var pre = document.getElementById('barraChats').innerHTML;
+				$.get("../Controller/chats.php",{id:id}).done(function(data){$("#barraChats").html(data);});
+				submenu("barraChats");
+				
+			}
+			function popupSala(){
+				$.get("popupSala.php", function(data) {$("#popup").html(data);});
+				submenu("popup");
 			}
 
 			getSala();
@@ -46,13 +59,15 @@
 		</script>
 	</head>
 	<body>
+		<div id="popup" style="display: none">
+		</div>
 		<div id= "conteudo">
 			<div id="cabeçalho">
 				<?php
 					echo $_SESSION['usuario'];
 				?>
 				 |
-				<a href=#> criar sala</a> | 
+				<a href=# onclick="popupSala()"> salas</a> | 
 				<a href=#> amigos</a> |
 				<a href=#> notificações</a> |
 				<a href=#> ver perfil</a> |
@@ -60,9 +75,8 @@
 			</div>
 			
 			<div id="barraLateral">
-				<br/>
-				<li id="lista">Home</li>
-				<li id="lista"><a href=# onclick = "submenu('barraChats')">teste1</a></li>
+				
+				
 			</div>
 			<div id="barraLateralDireita">
 				<br/><li id="lista">Repositorio</li>
@@ -84,22 +98,27 @@
 				</form>
 			</div>
 			<div id ="barraChats" style = "display: none;">
-				<br/><a href=# onclick="exibeChat()">Chat inicial</a>
-				<br/><a href="ChatRPG.php">Chat RPG</a>
-
-			</div>
-
-			<div id = "barra inferior">
 				
 			</div>
-			
 			<div id="corpo">
 				<br/>
 				<br/>
 				<br/>
-				As mensagens dos chats que vc participa aparecerão aqui
+				As mensagens dos chats que você participa aparecerão aqui
 				
 			</div>
+
+			<div id = "barraInferior">
+				<div id='entrada' style ="display: none;">
+					<br/>
+					<form method='post' id='envio'>
+						<textarea class = 'textArea' id = 'mensagem' name='mensagem' class = 'textArea'></textarea>
+						<button type='reset' class ='botao' onClick='enviar()'>Enviar</button>
+					</form>
+				</div>
+				
+			</div>
+			
 		</div>
 	</body>
 </html>

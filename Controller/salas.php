@@ -14,10 +14,19 @@
 		$sala = "sala$id";
 		$chats = $sala.'chats';
 
+		if($ln['tipo'] = "ADM"){
+			$edit= '<a href="#" onclick="editarSala('.$id.')">edit<a/>';
+		}
+		else{
+			$edit = '';
+		}
+
 		$html= "<br/>
 				<div id='sala$id'>".
-					'<a href="#" onclick = \'submenu("barraChats")\'>'."$nome <a/>
-				</div>";
+					'<a href="#" onclick = "getChat('.$id.');">'."$nome <a/>"
+					.$edit.
+
+				"</div>";
 		echo $html;
 	}
 ?>
