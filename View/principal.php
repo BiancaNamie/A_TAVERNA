@@ -12,6 +12,8 @@
 
 			//setInterval("getSala()",500);
 
+			var interval;
+
 
 			function submenu(id){
 				var e = document.getElementById(id);
@@ -29,15 +31,14 @@
 				$.ajax({type: 'POST',url: '../Controller/enviar.php',data:{mensagem: mensagem}});
        		}
        		function exibeChat(id){
-       			
        			var b = document.getElementById('entrada');
        			b.style.display ='block'
+       			clearInterval(interval);
+       			interval = setInterval("atualizar("+id+")", 600);
        			atualizar(id);
-       			var interval;
-				$(document).on('ready',function(){interval = setInterval(atualizar(id),3000);});
        		}
        		function atualizar(id){	
-			  $.get("../Controller/bloco.php",{id:id}).done(function(data) {$("#corpo").html(data);});
+			  $.get("../Controller/bloco.php",{id:id}).done(function(data) {$("#corpo").html(data);});		  
 			}
 
        		function getSala(){	

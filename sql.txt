@@ -1,5 +1,0 @@
-create database taverna;
-use taverna;
-create table mensagem(id int primary key auto_increment not null, usuario text(20), mensagem text(100));
-
-create table usuario(nome varchar(50), sobrenome varchar(50), DataNascimento date, email varchar(50), apelido varchar(50) primary key, senha varchar(50) NOT NULL);

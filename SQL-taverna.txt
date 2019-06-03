@@ -1,0 +1,76 @@
+/* Taverna esquema logico: */
+
+CREATE TABLE Usuario (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50),
+    sobrenome VARCHAR(50),
+    dataNascimento DATE,
+    apelido VARCHAR(50) UNIQUE,
+    email VARCHAR(50),
+    senha VARCHAR(50)
+);
+
+CREATE TABLE Sala (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50),
+    descricao VARCHAR(250)
+);
+
+CREATE TABLE Chat (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    idSala INTEGER,
+    nome VARCHAR(50),
+    tipo VARCHAR(5),
+    descricao VARCHAR(255)
+);
+
+CREATE TABLE Participa (
+    idUsuario INTEGER,
+    idSala INTEGER,
+    tipo VARCHAR(10)
+);
+
+CREATE TABLE Repositorio (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    idSala INTEGER,
+    conteudos BLOB
+);
+
+CREATE TABLE Mensagem (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    idChat INTEGER,
+    usuario VARCHAR(50),
+    mensagem TEXT(250)
+    
+);
+
+CREATE TABLE arquivo (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    chatId INTEGER,
+    nome VARCHAR(100),
+    tipo VARCHAR(10),
+    arquivo BLOB);
+
+ALTER TABLE Arquivo ADD CONSTRAINT FK_Arquivo_0
+    FOREIGN KEY (chatId)
+    REFERENCES Chat (id);
+ 
+ALTER TABLE Chat ADD CONSTRAINT FK_Chat_0
+    FOREIGN KEY (idSala)
+    REFERENCES Sala (id);
+ 
+ALTER TABLE Participa ADD CONSTRAINT FK_Participa_0
+    FOREIGN KEY (idUsuario)
+    REFERENCES Usuario (id);
+ 
+ALTER TABLE Participa ADD CONSTRAINT FK_Participa_1
+    FOREIGN KEY (idSala)
+    REFERENCES Sala (id);
+ 
+ALTER TABLE Repositorio ADD CONSTRAINT FK_Repositorio_1
+    FOREIGN KEY (idSala)
+    REFERENCES Sala (id);
+ 
+ALTER TABLE Mensagem ADD CONSTRAINT FK_Mensagem_1
+    FOREIGN KEY (idChat)
+    REFERENCES Chat (id);
