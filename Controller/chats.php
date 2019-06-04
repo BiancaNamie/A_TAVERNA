@@ -13,7 +13,7 @@
 			$id = $ln['id'];
 
 			echo"<br/>
-				<div id='$nome'>".
+				<div id='$nome' style='position: fixed;'>".
 					'<a href="#" onclick = exibeChat('.$id.');>'."$nome <a/>
 				</div>";
 		}

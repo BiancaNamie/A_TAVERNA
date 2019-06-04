@@ -99,7 +99,7 @@
 
 				</form>
 			</div>
-			<div id ="barraChats" style = "display: none;">
+			<div id ="barraChats">
 				
 			</div>
 			<div id="corpo">
@@ -114,7 +114,7 @@
 				<div id='entrada' style ="display: none;">
 					<br/>
 					<form method='post' id='envio'>
-						<textarea class = 'textArea' id = 'mensagem' name='mensagem' class = 'textArea'></textarea>
+						<textarea class = 'textArea' id = 'mensagem' name='mensagem' class = 'textArea' required autofocus></textarea>
 						<button type='reset' class ='botao' onClick='enviar()'>Enviar</button>
 					</form>
 				</div>
