@@ -1,12 +1,10 @@
 <?php
-	session_start();
-	include_once("conect.php");
+	include_once("sessionCheker.php");
+	include ("consultas.php");
 
+	$content = new getContent;
 
-	$idUsuario = $_SESSION['id'];
-	$select = "SELECT * FROM sala s JOIN participa p ON s.id = p.idSala WHERE p.idUsuario = $idUsuario";
-	$consulta = mysqli_query($conn, $select);
-
+	$consulta = $content->getSalasFromUsuario($_SESSION['id']);
 
 	while($ln = mysqli_fetch_array($consulta)){
 		$nome = $ln['nome'];

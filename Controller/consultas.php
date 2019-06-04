@@ -1,0 +1,47 @@
+<?php
+
+	
+	class getContent{
+
+
+		function getSalasFromUsuario($Usuarioid){
+
+			include("conect.php");
+
+			$select = "SELECT * FROM sala s JOIN participa p ON s.id = p.idSala WHERE p.idUsuario = $Usuarioid";
+			$consulta = mysqli_query($conn, $select);
+
+			return $consulta;
+			mysqli_close($conn);
+
+		}
+
+		function getChatsFromSala($idSala){
+
+			include("conect.php");
+
+			$select = "SELECT c.id, c.nome FROM chat c JOIN sala s on c.idSala = s.id where s.id = $idSala";
+			$consulta = mysqli_query($conn, $select);
+			
+			return $consulta;
+			mysqli_close($conn);
+
+		}
+
+		function getArquivosFromSala($idSala){
+
+			include("conect.php");
+		
+			$select = "SELECT * FROM arquivo where ";
+			$consulta = mysqli_query($conn, $consulta);
+			
+			return $consulta;
+			mysqli_close($conn);
+							
+		}
+
+
+	}
+
+
+?>
