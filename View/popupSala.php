@@ -11,8 +11,8 @@
 		<div id= "popupSectionL" class="popupSection">
 			<h3>Entrar em uma Sala<h3/>
 
-			<form>
-				<input type="text" name="nome">
+			<form id = "formBuscaSala">
+				<input type="text" name="string">
 				<button type="reset" onclick="buscaSala()"> Buscar </button>
 			</form>
 

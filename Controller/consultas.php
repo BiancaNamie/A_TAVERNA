@@ -16,6 +16,18 @@
 
 		}
 
+		function getSalasFromBusca($string){
+
+			include("conect.php");
+
+			$select = "SELECT * FROM sala where nome LIKE '%$string%' ";
+			$consulta = mysqli_query($conn, $select);
+
+			return $consulta;
+			mysqli_close($conn);
+
+		}
+
 		function getChatsFromSala($idSala){
 
 			include("conect.php");
@@ -28,12 +40,23 @@
 
 		}
 
+		function getMensagensFromChat($idChat){
+			include("conect.php");
+
+			$select = "SELECT * from mensagem m WHERE m.Idchat = '$idChat' ";
+			$consulta = mysqli_query($conn, $select);
+			
+			return $consulta;
+			mysqli_close($conn);
+
+		}
+
 		function getArquivosFromSala($idSala){
 
 			include("conect.php");
 		
-			$select = "SELECT * FROM arquivo where ";
-			$consulta = mysqli_query($conn, $consulta);
+			$select = "SELECT * FROM arquivo where idSala = $idSala ";
+			$consulta = mysqli_query($conn, $select);
 			
 			return $consulta;
 			mysqli_close($conn);

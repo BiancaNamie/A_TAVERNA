@@ -9,11 +9,7 @@
 		<script src="../jquery-3.4.0.min.js" type="text/javascript"></script>
 
 		<script type = "text/javascript">
-
-			//setInterval("getSala()",500);
-
 			var interval;
-
 
 			function submenu(id){
 				var e = document.getElementById(id);
@@ -24,35 +20,46 @@
        			var e = document.getElementById(id);
        			if(e.style.display == 'block')
             		e.style.display = 'none';
-
        		}
-       		function enviar(){
+       		function enviar(id){
        			var mensagem = document.forms["envio"]["mensagem"].value;
-				$.ajax({type: 'POST',url: '../Controller/enviar.php',data:{mensagem: mensagem}});
+				$.ajax({type: 'POST',url: '../Controller/enviar.php',data:{mensagem: mensagem}}).done(atualizarScroll(id));
        		}
        		function exibeChat(id){
        			var b = document.getElementById('entrada');
        			b.style.display ='block'
        			clearInterval(interval);
        			interval = setInterval("atualizar("+id+")", 600);
-       			atualizar(id);
+       			atualizarScroll(id);
        		}
        		function atualizar(id){	
-			  $.get("../Controller/bloco.php",{id:id}).done(function(data) {$("#corpo").html(data);});		  
+			  $.get("../Controller/format.php",{request:'mensagens', id:id}).done(function(data) {$("#corpo").html(data);});		  
 			}
-
+			function atualizarScroll(id){	
+			  $.get("../Controller/format.php",{request:'mensagens', id:id}).done(function(data) {$("#corpo").html(data);}).done(scroll);		  
+			}
        		function getSala(){	
-			  $.get("../Controller/salas.php", function(data) {$("#barraLateral").html(data);});
+			  $.get("../Controller/format.php",{request:'salasBarraLateral'}).done(function(data) {$("#barraLateral").html(data);});
+			  getArquivo();
 			}
 			function getChat(id){
-				var pre = document.getElementById('barraChats').innerHTML;
-				$.get("../Controller/chats.php",{id:id}).done(function(data){$("#barraChats").html(data);});
-				submenu("barraChats");
-				
+				$.get("../Controller/format.php",{request:'chatsBarraChats', id:id}).done(function(data){$("#barraChats").html(data);});
 			}
 			function popupSala(){
 				$.get("popupSala.php", function(data) {$("#popup").html(data);});
 				submenu("popup");
+			}
+			function getArquivo(id){	
+			  $.get("../Controller/format.php",{request:'arquivosBarraArquivos'}).done(function(data) {$("#repositorio").html(data);});
+			}
+			function scroll(){
+				var objDiv = document.getElementById("corpo");
+				objDiv.scrollTop = objDiv.scrollHeight;
+			}
+
+			function buscaSala(){
+				var string = document.forms["formBuscaSala"]["string"].value;
+				$.get("../Controller/format.php",{request:'salasPesquisa', string: string}).done(function(data){$("#areaBusca").html(data);});
 			}
 
 			getSala();
@@ -85,19 +92,9 @@
 				<form type= "file" method="Post" enctype="multipart/form-data" action ="../Controller/enviaArquivo.php">
 					<input type="file" name="arquivo"><br/>
 					<input type="submit" name="enviarArquivo"><br/>
-
-					<?php
-						$consulta = "SELECT * FROM arquivo";
-						$result = mysqli_query($conn, $consulta);
-						while($ln = mysqli_fetch_array($result)){
-							$nome = $ln['nome'];
-							echo "<br/> <a target = '_blank' href = ../Controller/visualizador.php?id='$ln[id]'>$nome<a/>";
-						}
-						
-
-					?>
-
 				</form>
+				<div id = "repositorio">
+				</div>
 			</div>
 			<div id ="barraChats">
 				
@@ -115,7 +112,9 @@
 					<br/>
 					<form method='post' id='envio'>
 						<textarea class = 'textArea' id = 'mensagem' name='mensagem' class = 'textArea' required autofocus></textarea>
-						<button type='reset' class ='botao' onClick='enviar()'>Enviar</button>
+						<?php
+							echo "<button type='reset' class ='botao' onClick='enviar(".$_SESSION['chat'].")'>Enviar</button>";
+						?>
 					</form>
 				</div>
 				

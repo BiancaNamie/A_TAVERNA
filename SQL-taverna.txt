@@ -4,7 +4,7 @@ CREATE TABLE Usuario (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50),
     sobrenome VARCHAR(50),
-    dataNascimento DATE,
+    dataDeNascimento DATE,
     apelido VARCHAR(50) UNIQUE,
     email VARCHAR(50),
     senha VARCHAR(50)
@@ -13,7 +13,7 @@ CREATE TABLE Usuario (
 CREATE TABLE Sala (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50),
-    descricao VARCHAR(250)
+    descricao TEXT(250)
 );
 
 CREATE TABLE Chat (
@@ -21,13 +21,13 @@ CREATE TABLE Chat (
     idSala INTEGER,
     nome VARCHAR(50),
     tipo VARCHAR(5),
-    descricao VARCHAR(255)
+    descricao TEXT(250)
 );
 
 CREATE TABLE Participa (
     idUsuario INTEGER,
     idSala INTEGER,
-    tipo VARCHAR(10)
+    tipo VARCHAR(5)
 );
 
 CREATE TABLE Mensagem (
@@ -35,19 +35,29 @@ CREATE TABLE Mensagem (
     idChat INTEGER,
     usuario VARCHAR(50),
     mensagem TEXT(250)
-    
 );
 
-CREATE TABLE arquivo (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    salaId INTEGER,
-    nome VARCHAR(100),
-    tipo VARCHAR(10),
-    arquivo LONGBLOB);
+CREATE TABLE Notificacao (
+    Id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    IdUsuarioDestino INTEGER,
+    IdUsuarioOrigem INTEGER,
+    Mensagem VARCHAR(50),
+    Tipo VARCHAR(5),
+    idSala INTEGER
+);
 
-ALTER TABLE Arquivo ADD CONSTRAINT FK_Arquivo_0
-    FOREIGN KEY (chatId)
-    REFERENCES Sala (id);
+CREATE TABLE Arquivo (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    idSala INTEGER,
+    nome VARCHAR(50),
+    tipo VARCHAR(10),
+    arquivo LONGBLOB
+);
+
+CREATE TABLE Amizade (
+    IdUsuario1 INTEGER,
+    idUsuario2 INTEGER
+);
  
 ALTER TABLE Chat ADD CONSTRAINT FK_Chat_0
     FOREIGN KEY (idSala)
@@ -64,3 +74,27 @@ ALTER TABLE Participa ADD CONSTRAINT FK_Participa_1
 ALTER TABLE Mensagem ADD CONSTRAINT FK_Mensagem_1
     FOREIGN KEY (idChat)
     REFERENCES Chat (id);
+ 
+ALTER TABLE Notificacao ADD CONSTRAINT FK_Notificacao_1
+    FOREIGN KEY (IdUsuarioDestino)
+    REFERENCES Usuario (id);
+ 
+ALTER TABLE Notificacao ADD CONSTRAINT FK_Notificacao_2
+    FOREIGN KEY (IdUsuarioOrigem)
+    REFERENCES Usuario (id);
+ 
+ALTER TABLE Notificacao ADD CONSTRAINT FK_Notificacao_3
+    FOREIGN KEY (idSala)
+    REFERENCES Sala (id);
+ 
+ALTER TABLE Arquivo ADD CONSTRAINT FK_Arquivo_0
+    FOREIGN KEY (idSala)
+    REFERENCES Sala (id);
+ 
+ALTER TABLE Amizade ADD CONSTRAINT FK_Amizade_0
+    FOREIGN KEY (IdUsuario1)
+    REFERENCES Usuario (id);
+ 
+ALTER TABLE Amizade ADD CONSTRAINT FK_Amizade_1
+    FOREIGN KEY (idUsuario2)
+    REFERENCES Usuario (id);
