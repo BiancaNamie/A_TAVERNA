@@ -19,8 +19,6 @@
 			<div id="areaBusca">
 				
 			</div>
-
-			<button></button>
 	
 		</div>
 
