@@ -63,6 +63,17 @@
 							
 		}
 
+		function getNotificacoes($Usuarioid){
+			include("conect.php");
+
+			$select = "SELECT * FROM notificacao WHERE idUsuarioDestino = $Usuarioid";
+			$consulta = mysqli_query($conn, $select);
+
+			return $consulta;
+			mysqli_close($conn);
+
+		}
+
 
 	}
 

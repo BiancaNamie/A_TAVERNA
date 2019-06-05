@@ -21,13 +21,13 @@
        			if(e.style.display == 'block')
             		e.style.display = 'none';
        		}
-       		function enviar(id){
+       		function enviar(){
        			var mensagem = document.forms["envio"]["mensagem"].value;
 				$.ajax({type: 'POST',url: '../Controller/enviar.php',data:{mensagem: mensagem}}).done(atualizarScroll(id));
        		}
        		function exibeChat(id){
        			var b = document.getElementById('entrada');
-       			b.style.display ='block'
+       			b.style.display ='block';
        			clearInterval(interval);
        			interval = setInterval("atualizar("+id+")", 600);
        			atualizarScroll(id);
@@ -49,6 +49,14 @@
 				$.get("popupSala.php", function(data) {$("#popup").html(data);});
 				submenu("popup");
 			}
+			function popupNotificacao(){
+				$.get("popupNotificacao.php", function(data) {$("#popup").html(data);}).done(
+					getNotificacoes());
+				submenu("popup");
+			}
+			function getNotificacoes(){
+				$.get("../Controller/format.php",{request:'notificacoes'}).done(function(data){$("#areaBusca").html(data);});
+			}
 			function getArquivo(id){	
 			  $.get("../Controller/format.php",{request:'arquivosBarraArquivos'}).done(function(data) {$("#repositorio").html(data);});
 			}
@@ -60,6 +68,19 @@
 			function buscaSala(){
 				var string = document.forms["formBuscaSala"]["string"].value;
 				$.get("../Controller/format.php",{request:'salasPesquisa', string: string}).done(function(data){$("#areaBusca").html(data);});
+			}
+
+			function pedidoIngresso(idSala){
+				$.ajax({type: 'POST',url: '../Controller/EnviarPedidoIngresso.php',data:{idSala: idSala}});
+			}
+
+			function insereParticipa(idUsuario, idSala, tipo){
+				alert("aki passou");
+				$.ajax({type: 'POST',url: '../Controller/insereParticipa.php',data:{idUsuario: idUsuario, idSala: idSala, tipo: tipo}});
+			}
+
+			function alerta(){
+				alert("aki passou");
 			}
 
 			getSala();
@@ -77,7 +98,7 @@
 				 |
 				<a href=# onclick="popupSala()"> salas</a> | 
 				<a href=#> amigos</a> |
-				<a href=#> notificações</a> |
+				<a href=# onclick="popupNotificacao()"> notificações</a> |
 				<a href=#> ver perfil</a> |
 				<a href="../Controller/logout.php">Sair</a> |
 
@@ -113,7 +134,7 @@
 					<form method='post' id='envio'>
 						<textarea class = 'textArea' id = 'mensagem' name='mensagem' class = 'textArea' required autofocus></textarea>
 						<?php
-							echo "<button type='reset' class ='botao' onClick='enviar(".$_SESSION['chat'].")'>Enviar</button>";
+							echo "<button type='reset' class ='botao' onClick='enviar()'>Enviar</button>";
 						?>
 					</form>
 				</div>

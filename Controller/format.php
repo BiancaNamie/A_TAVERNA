@@ -60,8 +60,11 @@
 			$sala = "sala$id";
 
 			$html= "<br/>
-					<div id='sala$id' style= 'width: 100%;''>
-						<a href='#''>$nome <a/><button>Solicitar entrada</button>
+					<div id='sala$id' style= 'width: 100%; overflow: hidden;'>
+						<div style='width: 59%; float: left;'><a href='#'>$nome <a/></div>
+						<div style=' width: 39%;float: right;'>
+							<div style='float: right;'><button onclick= 'pedidoIngresso(".$id.")'>Entrar</button></div>
+						</div>
 					</div>";
 			echo $html;
 		}
@@ -100,6 +103,26 @@
 
 	}
 
+	function notificacoes(){
+		$usuarioId = $_SESSION['id'];
+
+		$content= new getContent;
+		$consulta = $content->getNotificacoes($usuarioId);
+
+		
+		while($ln = mysqli_fetch_array($consulta)){
+			$mensagem = $ln['Mensagem'];
+			$tipo = $ln['Tipo'];
+			$usuarioOrigem = $ln['IdUsuarioOrigem'];
+			$sala =$ln['idSala'];
+			if($tipo=='PIS'){
+				$insere = 'insereParticipa('.$usuarioOrigem.', '.$sala.',"'."NML".'")';
+				//echo $insere.'\n';
+				echo "<div>$mensagem <button onclick='".$insere."'> aceitar</button></div>";
+			}
+		}
+	}
+
 
 
 	if(isset($_GET['request'])){
@@ -120,6 +143,9 @@
 				break;
 			case 'arquivosBarraArquivos':
 				arquivosBarraArquivos();
+				break;
+			case 'notificacoes':
+				notificacoes();
 				break;
 			
 			default:
