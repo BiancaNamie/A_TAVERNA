@@ -10,6 +10,8 @@
 
 		<script type = "text/javascript">
 			var interval;
+			var chat;
+			var sala;
 
 			function submenu(id){
 				var e = document.getElementById(id);
@@ -23,10 +25,18 @@
        		}
        		function enviar(){
        			var mensagem = document.forms["envio"]["mensagem"].value;
-				$.ajax({type: 'POST',url: '../Controller/enviar.php',data:{mensagem: mensagem}}).done(atualizarScroll(id));
+				$.ajax({type: 'POST',url: '../Controller/enviar.php',data:{mensagem: mensagem}}, ).done(atualizarScroll(chat));
+       		}
+       		function enviaArquivo(){
+       			var form = $('#formArquivo')[0];
+             	arquivo = new FormData(form);
+      			 
+				$.ajax({type: 'POST',url: '../Controller/enviaArquivo.php', data:arquivo , processData: false,
+                    contentType: false});
        		}
        		function exibeChat(id){
        			var b = document.getElementById('entrada');
+       			chat = id;
        			b.style.display ='block';
        			clearInterval(interval);
        			interval = setInterval("atualizar("+id+")", 600);
@@ -40,10 +50,9 @@
 			}
        		function getSala(){	
 			  $.get("../Controller/format.php",{request:'salasBarraLateral'}).done(function(data) {$("#barraLateral").html(data);});
-			  getArquivo();
 			}
 			function getChat(id){
-				$.get("../Controller/format.php",{request:'chatsBarraChats', id:id}).done(function(data){$("#barraChats").html(data);});
+				$.get("../Controller/format.php",{request:'chatsBarraChats', id:id}).done(function(data){$("#barraChats").html(data);}).done(getArquivo());
 			}
 			function popupSala(){
 				$.get("popupSala.php", function(data) {$("#popup").html(data);});
@@ -78,7 +87,6 @@
 				alert("aki passou");
 				$.ajax({type: 'POST',url: '../Controller/insereParticipa.php',data:{idUsuario: idUsuario, idSala: idSala, tipo: tipo}});
 			}
-
 			function alerta(){
 				alert("aki passou");
 			}
@@ -109,10 +117,11 @@
 				
 			</div>
 			<div id="barraLateralDireita">
-				<br/><li id="lista">Repositorio</li>
-				<form type= "file" method="Post" enctype="multipart/form-data" action ="../Controller/enviaArquivo.php">
-					<input type="file" name="arquivo"><br/>
-					<input type="submit" name="enviarArquivo"><br/>
+				<br/><h3>Arquivos da sala</h3>
+				<form type= "file" method="Post" enctype="multipart/form-data" action ="../Controller/enviaArquivo.php" id= 'formArquivo'>
+					<input type="file" name="arquivo" accept = 'media_type'><br/>
+					<!--<input type="submit" name="enviarArquivo"><br/>-->
+					<button type = "reset" onclick="enviaArquivo()">Enviar</button>
 				</form>
 				<div id = "repositorio">
 				</div>

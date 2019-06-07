@@ -50,7 +50,7 @@ CREATE TABLE Arquivo (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     idSala INTEGER,
     nome VARCHAR(50),
-    tipo VARCHAR(10),
+    tipo VARCHAR(100),
     arquivo LONGBLOB
 );
 
