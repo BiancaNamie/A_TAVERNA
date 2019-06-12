@@ -66,7 +66,7 @@
 		function getNotificacoes($Usuarioid){
 			include("conect.php");
 
-			$select = "SELECT * FROM notificacao WHERE idUsuarioDestino = $Usuarioid";
+			$select = "SELECT * FROM notificacao n JOIN associado a on n.id = a.idNotificacao where a.idUsuario = $Usuarioid";
 			$consulta = mysqli_query($conn, $select);
 
 			return $consulta;

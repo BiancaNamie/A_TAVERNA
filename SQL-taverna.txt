@@ -1,4 +1,4 @@
-/* Taverna esquema logico: */
+﻿/* Taverna esquema logico: */
 
 CREATE TABLE Usuario (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -39,7 +39,6 @@ CREATE TABLE Mensagem (
 
 CREATE TABLE Notificacao (
     Id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    IdUsuarioDestino INTEGER,
     IdUsuarioOrigem INTEGER,
     Mensagem VARCHAR(50),
     Tipo VARCHAR(5),
@@ -58,43 +57,51 @@ CREATE TABLE Amizade (
     IdUsuario1 INTEGER,
     idUsuario2 INTEGER
 );
+
+CREATE TABLE Associado (
+    IdUsuario INTEGER,
+    IdNotificacao INTEGER
+);
+ALTER TABLE Sala ADD CONSTRAINT FK_Sala_2
+    FOREIGN KEY (nome)
+    REFERENCES Notificacao (Id);
  
-ALTER TABLE Chat ADD CONSTRAINT FK_Chat_0
+ALTER TABLE Chat ADD CONSTRAINT FK_Chat_1
     FOREIGN KEY (idSala)
     REFERENCES Sala (id);
  
-ALTER TABLE Participa ADD CONSTRAINT FK_Participa_0
+ALTER TABLE Participa ADD CONSTRAINT FK_Participa_1
     FOREIGN KEY (idUsuario)
     REFERENCES Usuario (id);
  
-ALTER TABLE Participa ADD CONSTRAINT FK_Participa_1
+ALTER TABLE Participa ADD CONSTRAINT FK_Participa_2
     FOREIGN KEY (idSala)
     REFERENCES Sala (id);
  
-ALTER TABLE Mensagem ADD CONSTRAINT FK_Mensagem_1
+ALTER TABLE Mensagem ADD CONSTRAINT FK_Mensagem_2
     FOREIGN KEY (idChat)
     REFERENCES Chat (id);
  
-ALTER TABLE Notificacao ADD CONSTRAINT FK_Notificacao_1
-    FOREIGN KEY (IdUsuarioDestino)
-    REFERENCES Usuario (id);
- 
 ALTER TABLE Notificacao ADD CONSTRAINT FK_Notificacao_2
-    FOREIGN KEY (IdUsuarioOrigem)
-    REFERENCES Usuario (id);
- 
-ALTER TABLE Notificacao ADD CONSTRAINT FK_Notificacao_3
     FOREIGN KEY (idSala)
     REFERENCES Sala (id);
  
-ALTER TABLE Arquivo ADD CONSTRAINT FK_Arquivo_0
+ALTER TABLE Arquivo ADD CONSTRAINT FK_Arquivo_1
     FOREIGN KEY (idSala)
     REFERENCES Sala (id);
  
-ALTER TABLE Amizade ADD CONSTRAINT FK_Amizade_0
+ALTER TABLE Amizade ADD CONSTRAINT FK_Amizade_1
     FOREIGN KEY (IdUsuario1)
     REFERENCES Usuario (id);
  
-ALTER TABLE Amizade ADD CONSTRAINT FK_Amizade_1
+ALTER TABLE Amizade ADD CONSTRAINT FK_Amizade_2
     FOREIGN KEY (idUsuario2)
     REFERENCES Usuario (id);
+ 
+ALTER TABLE Associado ADD CONSTRAINT FK_Associado_1
+    FOREIGN KEY (IdUsuario)
+    REFERENCES Usuario (id);
+ 
+ALTER TABLE Associado ADD CONSTRAINT FK_Associado_2
+    FOREIGN KEY (IdNotificacao)
+    REFERENCES Notificacao (Id);
