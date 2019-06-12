@@ -58,6 +58,10 @@
 				$.get("popupSala.php", function(data) {$("#popup").html(data);});
 				submenu("popup");
 			}
+			function popupPerfil(){
+				$.get("popupPerfil.php", function(data) {$("#popup").html(data);});
+				submenu("popup");
+			}
 			function popupNotificacao(){
 				$.get("popupNotificacao.php", function(data) {$("#popup").html(data);}).done(
 					getNotificacoes());
@@ -107,7 +111,7 @@
 				<a href=# onclick="popupSala()"> salas</a> | 
 				<a href=#> amigos</a> |
 				<a href=# onclick="popupNotificacao()"> notificações</a> |
-				<a href=#> ver perfil</a> |
+				<a href=# onclick="popupPerfil()"> ver perfil</a> |
 				<a href="../Controller/logout.php">Sair</a> |
 
 			</div>

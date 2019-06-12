@@ -18,8 +18,8 @@
 					<form method= "post" action="../Controller/insereCadastro.php">
 						<table width="40%" align="center">
 							<tr>
-								<td width="10%">Usuário: </td>
-								<td><input type="text" name="usuario" class="campo2" maxlength="40" required autofocus/></td>
+								<td width="10%">Apelido: </td>
+								<td><input type="text" name="apelido" class="campo2" maxlength="40" required autofocus/></td>
 							</tr>
 							<tr>
 								<td width="10%">Nome: </td>

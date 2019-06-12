@@ -1,28 +1,17 @@
 <?php
-
-include_once("conect.php");
+include_once("../Model/usuario.php");
 
 // Escape user inputs for security
 
-$apelido = $conn->real_escape_string($_POST['usuario']);
-$nome = $conn->real_escape_string($_POST['nome']);
-$sobrenome = $conn->real_escape_string($_POST['sobrenome']);
-$DataNascimento = $conn->real_escape_string($_POST['dataNascimento']);
-$email = $conn->real_escape_string($_POST['email']);
-$senha = $conn->real_escape_string($_POST['senha']);
- 
-// Attempt insert query execution
-$sql = "INSERT INTO usuario VALUES ( default, '$nome', '$sobrenome','$DataNascimento','$apelido','$email','$senha')";
-if($conn->query($sql) === true){
-    echo "Records inserted successfully.";
-	echo '<script language="javascript">';
-	echo 'alert("Cadastro realizado com sucesso")';
-	echo '</script>';
-	header("location: ../View/index.php");
-} else{
-    echo "ERROR: Could not able to execute $sql. " . $conn->error;
-}
+$Usuario = new Usuario();
 
-mysqli_close($conn);
+$Usuario->__set("apelido",$_POST['apelido']);
+$Usuario->__set("nome",$_POST['nome']);
+$Usuario->__set("sobrenome",$_POST['sobrenome']);
+$Usuario->__set("dataNascimento",$_POST['dataNascimento']);
+$Usuario->__set("email",$_POST['email']);
+$Usuario->__set("senha",md5($_POST['senha']));
+
+$Usuario->criar();
 
 ?>
