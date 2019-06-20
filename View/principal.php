@@ -58,14 +58,21 @@
 				$.get("popupSala.php", function(data) {$("#popup").html(data);});
 				submenu("popup");
 			}
-			function popupPerfil(){
-				$.get("popupPerfil.php", function(data) {$("#popup").html(data);});
+			function popupChat(){
+				$.get("popupChat.php", function(data) {$("#popup").html(data);});
 				submenu("popup");
+			}
+			function popupAmigos(){
+				$.get("popupAmigos.php", function(data) {$("#popup").html(data);});
+				submenu("popup");
+			}
+			function popupPerfil(){
+				$.get("popupPerfil.php", function(data) {$("#popup").html(data);}).done(submenu("popup"));
 			}
 			function popupNotificacao(){
 				$.get("popupNotificacao.php", function(data) {$("#popup").html(data);}).done(
-					getNotificacoes());
-				submenu("popup");
+					getNotificacoes()).done(submenu("popup"));
+				
 			}
 			function getNotificacoes(){
 				$.get("../Controller/format.php",{request:'notificacoes'}).done(function(data){$("#areaBusca").html(data);});
@@ -109,7 +116,7 @@
 				?>
 				 |
 				<a href=# onclick="popupSala()"> salas</a> | 
-				<a href=#> amigos</a> |
+				<a href=# onclick="popupAmigos()"> amigos</a> |
 				<a href=# onclick="popupNotificacao()"> notificações</a> |
 				<a href=# onclick="popupPerfil()"> ver perfil</a> |
 				<a href="../Controller/logout.php">Sair</a> |
