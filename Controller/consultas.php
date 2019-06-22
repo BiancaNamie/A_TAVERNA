@@ -77,7 +77,7 @@
 		function getAmigosFromBusca($string){
 			include("conect.php");
 
-			$select = "SELECT apelido FROM usuario where apelido LIKE '%$string%' ";
+			$select = "SELECT id, apelido FROM usuario where apelido LIKE '%$string%' ";
 			$consulta = mysqli_query($conn, $select);
 
 			return $consulta;

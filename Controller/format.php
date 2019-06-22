@@ -104,20 +104,25 @@
 	}
 
 	function notificacoes(){
-		$usuarioId = $_SESSION['id'];
 
+		$usuarioId = $_SESSION['id'];
 		$content= new getContent;
 		$consulta = $content->getNotificacoes($usuarioId);
 
-		
 		while($ln = mysqli_fetch_array($consulta)){
+
+			$id = $ln['Id'];
 			$mensagem = $ln['Mensagem'];
 			$tipo = $ln['Tipo'];
 			$usuarioOrigem = $ln['IdUsuarioOrigem'];
 			$sala =$ln['idSala'];
+
 			if($tipo=='PIS'){
 				$insere = 'insereParticipa('.$usuarioOrigem.', '.$sala.',"'."NML".'")';
-				//echo $insere.'\n';
+				echo "<div>$mensagem <button onclick='".$insere."'> aceitar</button></div>";
+			}
+			if($tipo=='PDA'){
+				$insere = "confirmaPedidoAmizade($id)";
 				echo "<div>$mensagem <button onclick='".$insere."'> aceitar</button></div>";
 			}
 		}
@@ -130,8 +135,9 @@
 		$consulta = $content->getAmigosFromBusca($str);
 
 		while($ln = mysqli_fetch_array($consulta)){
-			$apelido = $ln[0];
-			echo "$apelido<br/>";
+			$apelido = $ln['apelido'];
+			$id = $ln['id'];
+			echo "<br/>$apelido <button onclick = 'pedidoAmizade($id)'>Solicitar Amizade</button>";
 		}
 	}
 

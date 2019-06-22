@@ -97,12 +97,14 @@
 			function insereParticipa(idUsuario, idSala, tipo){
 				$.ajax({type: 'POST',url: '../Controller/insereParticipa.php',data:{idUsuario: idUsuario, idSala: idSala, tipo: tipo}});
 			}
-			function alerta(){
-				alert("aki passou");
+
+
+			function pedidoAmizade(id){
+				$.ajax({type: 'POST',url: '../Controller/amizadeController.php',data:{request:'pedidoAmizade',id:id}});
 			}
 
-			function  postRequest(arquivo, request){
-				$.ajax({type: 'POST',url: '../Controller/'+arquivo+'.php',data:{idSala: idSala}});
+			function confirmaPedidoAmizade(id){
+				$.ajax({type: 'POST',url: '../Controller/amizadeController.php',data:{request:'confirmaPedidoAmizade',id:id}});
 			}
 
 			function BuscaAmigo(){

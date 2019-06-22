@@ -16,8 +16,9 @@
     		$n = $this->nome;
     		$d = $this->descricao;
 
-    		include_once('../Controller/Connect.php');
+    		include_once('../Controller/conect.php');
     		$insert = "INSERT INTO sala VALUES (DEFAULT, '$n', '$d')";
+            $generatedId = "SELECT LAST_INSERT_ID()";
 
     		if(mysql_query($conn, $insert)){
     			echo "Erro interno";
@@ -25,7 +26,11 @@
     		else{
     			echo "Sala criada com sucesso";
     		}
+
+            $ln =mysqli_fetch_array(mysql_query($conn, $generatedId));
+            $lastId = $ln[0];
     		mysqli_close($conn);
+            return $lastId;
     	}
 
         function alterar(){

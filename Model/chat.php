@@ -1,5 +1,6 @@
 <?php
 	class chat{
+        private $id;
         private $idSala;
 		private $nome;
 		private $descricao;
@@ -28,6 +29,7 @@
     			return "Erro interno".mysqli_error($conn);
     		}
     		mysqli_close($conn);
+            
     	}
          function alterar(){
             $id = $this->id;
