@@ -2,22 +2,7 @@
 	include("../Model/chat.php");
 
 	class chatController{
-
-		function __construct() {
-
-			/*
-			$request = $_POST['request'];
-
-			switch ($request) {
-				case 'insereChat':
-					insereChat();
-					break;
-				default:
-					# code...
-					break;
-			}
-			*/
-	   }
+		
 		function insereChat(){
 
 			$idSala = $_POST['idSala'];

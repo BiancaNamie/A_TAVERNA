@@ -100,6 +100,13 @@
 			$.ajax({type: 'POST',url: '../Controller/chatController.php', data:{nome: nome, descricao: descricao, tipo: tipo, idSala: idSala}});
 		}
 
+		function updateSala(id){
+			nome = document.forms['formEditarSala']['nome'].value;
+			descricao = document.forms['formEditarSala']['descricao'].value;
+
+			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{ request:'updateSala',id: id, nome: nome, descricao: descricao}});
+		}
+
 		minhasSalas();
 	</script>
 </head>

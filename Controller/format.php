@@ -89,8 +89,7 @@
 		}
 	}
 
-	function arquivosBarraArquivos(){
-		$sala = $_SESSION['sala'];
+	function arquivosBarraArquivos($sala){
 
 		$content= new getContent;
 		$consulta = $content->getArquivosFromSala($sala);
@@ -100,6 +99,7 @@
 			$nome = $ln['nome'];
 			echo "<br/> <a target = '_blank' href = ../Controller/visualizador.php?id='$ln[id]'>$nome<a/>";
 		}
+		
 
 	}
 
@@ -182,6 +182,7 @@
 
 
 		echo '<h3>Visualizar Sala</h3>
+					<form id="formEditarSala">
 				
 					Nome:  <br/>
 					<input type="text" name="nome" id ="nome" value="'.$n.'"><br/><br/>
@@ -192,7 +193,9 @@
 						'.$chats.'
 	
 					</div>
-					<button onclick="AtivaCriarChat()">adicionar chat</button> ';
+					</form>
+					<button onclick="AtivaCriarChat()">adicionar chat</button> 
+					<button onclick="updateSala('.$id.')">Salvar alterações </button>';
 	}
 
 
@@ -217,7 +220,7 @@
 
 
 		$html ='<h3>Visualizar Chat<h3/>
-					<table border="0" cellspacing="0" cellpadding="0">
+					<table border="0" cellspacing="10" cellpadding="0">
 						<tr>
 							<td>Nome:</td>
 							<td><input type="text" value="'.$n.'"></td>
@@ -235,6 +238,9 @@
 								</select>
 								<br/>
 							</td>
+						</tr>
+						<tr>
+							<td><button>Salvar Alteracoes</button></td>
 						</tr>
 					
 					</table>';
@@ -289,7 +295,7 @@
 				chatsBarraChats();
 				break;
 			case 'arquivosBarraArquivos':
-				arquivosBarraArquivos();
+				arquivosBarraArquivos($_GET['id']);
 				break;
 			case 'notificacoes':
 				notificacoes();

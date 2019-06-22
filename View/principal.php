@@ -30,9 +30,11 @@
        		function enviaArquivo(){
        			var form = $('#formArquivo')[0];
              	arquivo = new FormData(form);
+             	arquivo.set('request', 'enviaArquivo');
+             	arquivo.set('idSala', sala);
       			 
-				$.ajax({type: 'POST',url: '../Controller/enviaArquivo.php', data:arquivo , processData: false,
-                    contentType: false});
+				$.ajax({type: 'POST',url: '../Controller/arquivoController.php', data:arquivo , processData: false,
+                    contentType: false}).done(function(data){$('#barraInferior').html(data)});
        		}
        		function exibeChat(id){
        			var b = document.getElementById('entrada');
@@ -52,6 +54,7 @@
 			  $.get("../Controller/format.php",{request:'salasBarraLateral'}).done(function(data) {$("#barraLateral").html(data);});
 			}
 			function getChat(id){
+				sala = id;
 				$.get("../Controller/format.php",{request:'chatsBarraChats', id:id}).done(function(data){$("#barraChats").html(data);}).done(getArquivo());
 			}
 			function popupSala(){
@@ -78,7 +81,7 @@
 				$.get("../Controller/format.php",{request:'notificacoes'}).done(function(data){$("#areaBusca").html(data);});
 			}
 			function getArquivo(id){	
-			  $.get("../Controller/format.php",{request:'arquivosBarraArquivos'}).done(function(data) {$("#repositorio").html(data);});
+			  $.get("../Controller/format.php",{request:'arquivosBarraArquivos', id: sala}).done(function(data) {$("#repositorio").html(data);});
 			}
 			function scroll(){
 				var objDiv = document.getElementById("corpo");
@@ -140,11 +143,12 @@
 			</div>
 			<div id="barraLateralDireita">
 				<br/><h3>Arquivos da sala</h3>
-				<form type= "file" method="Post" enctype="multipart/form-data" action ="../Controller/enviaArquivo.php" id= 'formArquivo'>
+
+				<form type= "file" method="Post" enctype="multipart/form-data" action ="../Controller/arquivoController.php" id= 'formArquivo'>
 					<input type="file" name="arquivo" accept = 'media_type'><br/>
-					<!--<input type="submit" name="enviarArquivo"><br/>-->
 					<button type = "reset" onclick="enviaArquivo()">Enviar</button>
 				</form>
+
 				<div id = "repositorio">
 				</div>
 			</div>

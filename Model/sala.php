@@ -16,7 +16,7 @@
     		$n = $this->nome;
     		$d = $this->descricao;
 
-    		include_once('../Controller/conect.php');
+    		include('../Controller/conect.php');
     		$insert = "INSERT INTO sala VALUES (DEFAULT, '$n', '$d')";
             $generatedId = "SELECT LAST_INSERT_ID()";
 
@@ -38,7 +38,7 @@
             $n=$this->nome;
             $d=$this->descricao;
             
-            include_once("../Controller/conect.php");
+            include("../Controller/conect.php");
             $sql="UPDATE sala SET nome='$n', descricao='$d' WHERE id='$id'";
 
             if(mysqli_query($conn,$sql)){
@@ -51,8 +51,8 @@
          }
         function excluir(){
             $id = $this->id;
-            include_once("../Controller/conect.php");
-            $sql="DELETE FROM sala WHERE id='id'";
+            include("../Controller/conect.php");
+            $sql="DELETE FROM sala WHERE id='$id'";
             $executa= mysqli_query($conn,$sql);
             mysqli_close($conn);
             
@@ -61,13 +61,14 @@
     
 
     	function find($id){
-    		include_once("../Controller/conect.php");
+    		include("../Controller/conect.php");
 
 			$sql="SELECT * FROM sala s where id = '$id'";
 			$executa= mysqli_query($conn,$sql);
 			
 			$ln= mysqli_fetch_array($executa);
 			$sala = new sala;
+            $sala->__set('id', $ln['id']);
 			$sala->__set('nome', $ln['nome']);
 			$sala->__set('descricao', $ln['descricao']);
             return $sala;
