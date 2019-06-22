@@ -58,7 +58,7 @@
 				$.get("popupSala.php", function(data) {$("#popup").html(data);});
 				submenu("popup");
 			}
-			function popupChat(){
+			function popupChat(id){
 				$.get("popupChat.php", function(data) {$("#popup").html(data);});
 				submenu("popup");
 			}
@@ -95,11 +95,20 @@
 			}
 
 			function insereParticipa(idUsuario, idSala, tipo){
-				alert("aki passou");
 				$.ajax({type: 'POST',url: '../Controller/insereParticipa.php',data:{idUsuario: idUsuario, idSala: idSala, tipo: tipo}});
 			}
 			function alerta(){
 				alert("aki passou");
+			}
+
+			function  postRequest(arquivo, request){
+				$.ajax({type: 'POST',url: '../Controller/'+arquivo+'.php',data:{idSala: idSala}});
+			}
+
+			function BuscaAmigo(){
+				var string = document.forms['formBuscaAmigos']['string'].value;
+
+				$.get("../Controller/format.php",{request:'usuarioBusca', string:string}).done(function(data) {$("#areaBuscaAmigos").html(data);});
 			}
 
 			getSala();
@@ -115,7 +124,7 @@
 					echo $_SESSION['usuario'];
 				?>
 				 |
-				<a href=# onclick="popupSala()"> salas</a> | 
+				<a href=# onclick="popupSala()"> salas e chats</a> | 
 				<a href=# onclick="popupAmigos()"> amigos</a> |
 				<a href=# onclick="popupNotificacao()"> notificações</a> |
 				<a href=# onclick="popupPerfil()"> ver perfil</a> |

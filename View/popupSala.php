@@ -4,41 +4,103 @@
 	<title> Opções de Sala</title>
 	<?php session_start();  ?>
 	<script type = "text/javascript">
+
+		var salaSelecionada;
+
 		function AtivaSuasSalas(el) {
 			var display = document.getElementById(el).style.display;
-			if(display == "none")
+			if(display == "none"){
 				document.getElementById(el).style.display = 'block';
 				document.getElementById('CriarSala').style.display = 'none';
 				document.getElementById('BuscarSalas').style.display = 'none';
 				document.getElementById('VisualizarSala').style.display = 'none';
-		}
+				document.getElementById('CriarChat').style.display = 'none';
+				document.getElementById('VisualizarChat').style.display = 'none';
+			}
 		
+		}
 		function AtivaCriarSala(el) {
 			var display = document.getElementById(el).style.display;
-			if(display == "none")
+			if(display == "none"){
 				document.getElementById(el).style.display = 'block';
-				document.getElementById('BuscarSalas').style.display = 'none';
 				document.getElementById('SuasSalas').style.display = 'none';
+				document.getElementById('BuscarSalas').style.display = 'none';
 				document.getElementById('VisualizarSala').style.display = 'none';
-		}
+				document.getElementById('CriarChat').style.display = 'none';
+				document.getElementById('VisualizarChat').style.display = 'none';
+			}
 		
+		}
 		function AtivaBuscarSalas(el) {
 			var display = document.getElementById(el).style.display;
-			if(display == "none")
+			if(display == "none"){
 				document.getElementById(el).style.display = 'block';
 				document.getElementById('SuasSalas').style.display = 'none';
 				document.getElementById('CriarSala').style.display = 'none';
 				document.getElementById('VisualizarSala').style.display = 'none';
+				document.getElementById('CriarChat').style.display = 'none';
+				document.getElementById('VisualizarChat').style.display = 'none';
+				document.getElementById('VisualizarChat').style.display = 'none';
+			}
 		}
 
-		function AtivaVisualizarSala(el) {
-			var display = document.getElementById(el).style.display;
-			if(display == "none")
-				document.getElementById(el).style.display = 'block';
+		function AtivaVisualizarSala(id) {
+			salaSelecionada = id;
+			$.get('../Controller/format.php',{request: 'visualisarSala', id: id}).done(function(data){$('#VisualizarSala').html(data);});
+
+			var display = document.getElementById('VisualizarSala').style.display;
+			if(display == "none"){
+				document.getElementById('VisualizarSala').style.display = 'block';
 				document.getElementById('SuasSalas').style.display = 'none';
 				document.getElementById('CriarSala').style.display = 'none';
 				document.getElementById('BuscarSalas').style.display = 'none';
+				document.getElementById('CriarChat').style.display = 'none';
+				document.getElementById('VisualizarChat').style.display = 'none';
+			}
 		}
+
+		function AtivaVisualisarChat(id) {
+
+			$.get('../Controller/format.php', {request:'VisualizarChat', id:id}).done(function(data){$('#VisualizarChat').html(data);});
+
+			var display = document.getElementById('VisualizarChat').style.display;
+			if(display == "none"){
+				document.getElementById('VisualizarChat').style.display = 'block';
+				document.getElementById('SuasSalas').style.display = 'none';
+				document.getElementById('CriarChat').style.display = 'none';
+				document.getElementById('CriarSala').style.display = 'none';
+				document.getElementById('BuscarSalas').style.display = 'none';
+				document.getElementById('VisualizarSala').style.display = 'none';
+			}
+		}
+
+		function AtivaCriarChat() {
+
+			var display = document.getElementById('CriarChat').style.display;
+			if(display == "none"){
+				document.getElementById('CriarChat').style.display = 'block';
+				document.getElementById('SuasSalas').style.display = 'none';
+				document.getElementById('CriarSala').style.display = 'none';
+				document.getElementById('BuscarSalas').style.display = 'none';
+				document.getElementById('VisualizarSala').style.display = 'none';
+				document.getElementById('VisualizarChat').style.display = 'none';
+			}
+		}
+
+		function minhasSalas(){
+			$.get('../Controller/format.php', {request:'minhasSalas'}).done(function(data){$('#areaExibicao').html(data);});
+		}
+
+		function criarSala(){
+			idSala = salaSelecionada;
+			nome = document.forms['formCriarChat']['nome'].value;
+			tipo = document.forms['formCriarChat']['tipo'].value;
+			descricao = document.forms['formCriarChat']['descricao'].value;
+
+			$.ajax({type: 'POST',url: '../Controller/chatController.php', data:{nome: nome, descricao: descricao, tipo: tipo, idSala: idSala}});
+		}
+
+		minhasSalas();
 	</script>
 </head>
 
@@ -90,15 +152,50 @@
 				<h3>Visualizar Sala</h3>
 				
 					Nome:  <br/>
-					<input type="text" name="nome" value="Super Sala Super Legal"><br/><br/>
+					<input type="text" name="nome" id ="nome" value="Super Sala Super Legal"><br/><br/>
 					Descricao<br/>
 					<textarea name="descricao" class = "textArea"> Sala divertida</textarea><br/>
 					Chats
-					<div id="areaExibicao" style="background-color: FFFFFF; width: 90%; height: 30%;">
-						Seja bem vindo    <button onclick="popupChat()">Editar</button><br/>
+					<div id="areaExibicaoChats" style="background-color: FFFFFF; width: 90%; height: 30%;">
+						
 	
 					</div>
 					<button>adicionar chat</button>
+			</div>
+
+			<div id='VisualizarChat' style ="display: none;">
+				
+			</div>
+
+			<div id='CriarChat' style ="display: none;">
+				<h3>Criar Chat<h3/>
+					<form id = "formCriarChat" method="POST">
+						<table border="0" cellspacing="10" cellpadding="0">
+							<tr>
+								<td>Nome:</td>
+								<td><input name = 'nome' type="text"></td>
+							</tr>
+							<tr>
+								<td>Descrição:</td>
+								<td><textarea name ='descricao' class = "textArea" style=" width: 100%"></textarea></td>
+							</tr>						
+							<tr>
+								<td>
+									Tipo de Chat:<br/>
+									<select name = 'tipo'>
+									  <option value="NRM">Chat simples</option>
+									  <option value="RPG">Chat RPG</option>			
+									</select>
+									<br/>
+								</td>
+							</tr>
+							<tr>
+								<td><button type = "reset" onclick="criarSala()">Criar Chat</button></td>
+								<td><button type="reset">Cancelar</button></td>
+							</tr>
+						
+						</table>
+					</form>
 			</div>
 
 

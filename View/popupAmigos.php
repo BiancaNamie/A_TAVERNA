@@ -6,9 +6,11 @@
 	<script type = "text/javascript">
 		function AtivaSeusAmigos(el) {
 			var display = document.getElementById(el).style.display;
-			if(display == "none")
+			if(display == "none"){
 				document.getElementById(el).style.display = 'block';
 				document.getElementById('BuscarAmigos').style.display = 'none';
+			}
+			VisualizarAmigos();
 		}
 		
 		function AtivaBuscarAmigos(el) {
@@ -17,6 +19,11 @@
 				document.getElementById(el).style.display = 'block';
 				document.getElementById('SeusAmigos').style.display = 'none';
 		}
+
+		function VisualizarAmigos(){
+			$.get('../Controller/format.php', {request:'amigos'}).done(function(data){$("#areaExibicaoAmigos").html(data);});
+		}
+		VisualizarAmigos();
 		
 	</script>
 </head>
@@ -32,7 +39,7 @@
 
 				<h3>Seus Amigos<h3/>
 
-				<div id="areaExibicao">
+				<div id="areaExibicaoAmigos" style= "width: 95%; height: 75%; background-color: FFFFFF;">
 					
 				</div>
 
@@ -44,19 +51,16 @@
 
 				<form id = "formBuscaAmigos">
 					<input type="text" name="string">
-					<button type="reset" onclick="buscaSala()"> Buscar </button>
+					<button type="reset" onclick="BuscaAmigo()"> Buscar </button>
 				</form>
 
-				<div id="areaBusca">
+				<div id="areaBuscaAmigos" style= "width: 95%; height: 75%; background-color: FFFFFF;">
 					
 				</div>
 
 			</div>
 			
 		</div>
-
-
-
 
 		<div id="popupSectionR" class="popupSection" style="width:19% ! important;">
 		

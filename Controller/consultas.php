@@ -74,6 +74,44 @@
 
 		}
 
+		function getAmigosFromBusca($string){
+			include("conect.php");
+
+			$select = "SELECT apelido FROM usuario where apelido LIKE '%$string%' ";
+			$consulta = mysqli_query($conn, $select);
+
+			return $consulta;
+			mysqli_close($conn);
+
+		}
+
+		function getSalasFromMinhasSalas(){
+			include("conect.php");
+
+			$id = $_SESSION['id'];
+
+			$select = "SELECT s.id, s.nome FROM sala s join participa p on s.id = p.idSala where p.idUsuario = '$id' and p.tipo ='ADM' ";
+			$consulta = mysqli_query($conn, $select);
+
+			return $consulta;
+			mysqli_close($conn);
+
+		}
+
+		function getAmigosfromAmigos(){
+			include("conect.php");
+
+			$id = $_SESSION['id'];
+
+			$select = "SELECT apelido FROM amizade a JOIN usuario u ON a.idUsuario2 = u.id WHERE idUsuario1 = $id UNION SELECT apelido FROM amizade a JOIN usuario u ON a.idUsuario1 = u.id WHERE idUsuario2 = $id";
+			
+			$consulta = mysqli_query($conn, $select);
+
+			return $consulta;
+			mysqli_close($conn);
+
+		}
+
 
 	}
 
