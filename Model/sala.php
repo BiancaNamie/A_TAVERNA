@@ -49,21 +49,20 @@
             
             mysqli_close($conn);
          }
+
         function excluir(){
             $id = $this->id;
             include("../Controller/conect.php");
-            $sql="DELETE FROM sala WHERE id='$id'";
-            $executa= mysqli_query($conn,$sql);
+            $sql="DELETE FROM sala WHERE id=$id";
+            mysqli_query($conn,$sql);
             mysqli_close($conn);
-            
-            session_start();
         }
     
 
     	function find($id){
     		include("../Controller/conect.php");
 
-			$sql="SELECT * FROM sala s where id = '$id'";
+			$sql="SELECT * FROM sala s where id = $id";
 			$executa= mysqli_query($conn,$sql);
 			
 			$ln= mysqli_fetch_array($executa);

@@ -39,8 +39,20 @@
        		}
        		function exibeChat(id){
        			var b = document.getElementById('entrada');
+       			var c = document.getElementById('entradaRPG');
        			chat = id;
        			b.style.display ='block';
+       			c.style.display ='none';
+       			clearInterval(interval);
+       			interval = setInterval("atualizar("+id+")", 600);
+       			atualizarScroll(id);
+       		}
+       		function exibeChatRPG(id){
+       			var b = document.getElementById('entradaRPG');
+       			var c = document.getElementById('entrada');
+       			chat = id;
+       			b.style.display ='block';
+       			c.style.display ='none';
        			clearInterval(interval);
        			interval = setInterval("atualizar("+id+")", 600);
        			atualizarScroll(id);
@@ -165,7 +177,16 @@
 				<div id='entrada' style ="display: none;">
 					<br/>
 					<form method='post' id='envio'>
-						<textarea class = 'textArea' id = 'mensagem' name='mensagem' class = 'textArea' required autofocus></textarea>
+						<textarea rows = 5 cols = 80 class = 'textArea' id = 'mensagem' name='mensagem' class = 'textArea' required autofocus></textarea>
+						<?php
+							echo "<button type='reset' class ='botao' onClick='enviar()'>Enviar</button>";
+						?>
+					</form>
+				</div>
+				<div id='entradaRPG' style ="display: none;">
+					<br/>
+					<form method='post' id='envio'>
+						<textarea rows = 5 cols = 80 class = 'textArea' id = 'mensagem' name='mensagem' class = 'textArea' required autofocus></textarea>
 						<?php
 							echo "<button type='reset' class ='botao' onClick='enviar()'>Enviar</button>";
 							echo "<button type='reset' class ='botao' onClick='popupDados()'>Rolar Dados</button>";

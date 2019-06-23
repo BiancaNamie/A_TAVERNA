@@ -20,7 +20,7 @@
 	<div class="popupSection" style = "width: 98%; height: 97%;">
 		<h3>Suas notificações<h3/>
 
-		<div id="areaNotificacoes" style="background-color: FFFFFF; width: 90%; height: 80%;">
+		<div id="areaNotificacoes" style="overflow: auto;background-color: FFFFFF; width: 90%; height: 80%;">
 				
 		</div>
 	

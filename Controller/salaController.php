@@ -23,12 +23,21 @@
 		echo $result;
 	}
 
+	function excluirSala($id){
+		$sala = new sala;
+		$sala = $sala->find($id);
+		echo $sala->excluir();
+	}
+
 	switch ($_POST['request']) {
 		case 'criarSala':
 			criarSala();
 			break;
 		case 'updateSala':
 			UpdateSala($_POST['id'],$_POST['nome'],$_POST['descricao']);
+			break;
+		case 'excluirSala':
+			excluirSala($_POST['id']);
 			break;
 		default:
 			# code...

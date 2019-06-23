@@ -34,7 +34,7 @@
 
 			include("conect.php");
 
-			$select = "SELECT c.id, c.nome FROM chat c JOIN sala s on c.idSala = s.id where s.id = $idSala";
+			$select = "SELECT c.id, c.nome, c.tipo FROM chat c JOIN sala s on c.idSala = s.id where s.id = $idSala";
 			$consulta = mysqli_query($conn, $select);
 			mysqli_close($conn);
 			

@@ -50,12 +50,11 @@
          }
         function excluir(){
             $id = $this->id;
-            include_once("../Controller/conect.php");
-            $sql="DELETE FROM chat WHERE id='id'";
+
+            include("../Controller/conect.php");
+            $sql="DELETE FROM chat WHERE id= $id";
             $executa= mysqli_query($conn,$sql);
             mysqli_close($conn);
-            
-            session_start();
         }
     
 

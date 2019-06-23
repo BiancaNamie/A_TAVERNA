@@ -45,7 +45,7 @@
 
 				<h3>Seus Amigos<h3/>
 
-				<div id="areaExibicaoAmigos" style= "width: 95%; height: 75%; background-color: FFFFFF;">
+				<div id="areaExibicaoAmigos" style= "overflow: auto;width: 95%; height: 75%; background-color: FFFFFF;">
 					
 				</div>
 
@@ -60,7 +60,7 @@
 					<button type="reset" onclick="BuscaAmigo()"> Buscar </button>
 				</form>
 
-				<div id="areaBuscaAmigos" style= "width: 95%; height: 75%; background-color: FFFFFF;">
+				<div id="areaBuscaAmigos" style= "overflow: auto;width: 95%; height: 75%; background-color: FFFFFF;">
 					
 				</div>
 
