@@ -97,7 +97,7 @@
 			tipo = document.forms['formCriarChat']['tipo'].value;
 			descricao = document.forms['formCriarChat']['descricao'].value;
 
-			$.ajax({type: 'POST',url: '../Controller/chatController.php', data:{nome: nome, descricao: descricao, tipo: tipo, idSala: idSala}});
+			$.ajax({type: 'POST',url: '../Controller/chatController.php', data:{request:'insereSala', nome: nome, descricao: descricao, tipo: tipo, idSala: idSala}});
 		}
 
 		function updateSala(id){
@@ -105,6 +105,14 @@
 			descricao = document.forms['formEditarSala']['descricao'].value;
 
 			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{ request:'updateSala',id: id, nome: nome, descricao: descricao}});
+		}
+
+		function updateChat(id){
+			nome = document.forms['formEditarChat']['nome'].value;
+			descricao = document.forms['formEditarChat']['descricao'].value;
+			tipo = document.forms['formEditarChat']['tipo'].value;
+
+			$.ajax({type: 'POST',url: '../Controller/chatController.php', data:{ request:'updateChat',id: id, nome: nome,tipo: tipo ,descricao: descricao}});
 		}
 
 		minhasSalas();
@@ -137,7 +145,7 @@
 					<button type="reset" onclick="buscaSala()"> Buscar </button>
 				</form>
 
-				<div id="areaBusca">
+				<div id="areaBuscaSalas" style="background-color: FFFFFF; width: 90%; height: 75%;">
 					
 				</div>
 

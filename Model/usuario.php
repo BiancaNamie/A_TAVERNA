@@ -1,6 +1,7 @@
 <?php
 
 class Usuario{
+	private $id;
 	private $apelido;
     private $nome;
     private $sobrenome;
@@ -16,6 +17,7 @@ class Usuario{
     }
 	
 	function criar(){
+
 		$a=$this->apelido;
 		$n=$this->nome;
 		$so=$this->sobrenome;
@@ -40,6 +42,7 @@ class Usuario{
 	}
 	
 	function alterar(){
+		$id= $this->id;
 		$a=$this->apelido;
 		$n=$this->nome;
 		$so=$this->sobrenome;
@@ -48,7 +51,7 @@ class Usuario{
 		$s=$this->senha;
 		
 		include_once("../Controller/conect.php");
-		$sql="UPDATE usuario SET nome='$n', sobrenome='$so', dataDeNascimento='$d', email='$e', senha='$s' WHERE apelido='$a'";
+		$sql="UPDATE usuario SET apelido = '$a' nome='$n', sobrenome='$so', dataDeNascimento='$d', email='$e', senha='$s' WHERE id='$id'";
 
 		if(mysqli_query($conn,$sql)){
 			echo "Atualizado com sucesso.";
@@ -65,17 +68,13 @@ class Usuario{
 		}
 		
 		mysqli_close($conn);
-		
-		
-		
-		
-		//header("location: ../View/principal.php");
+	
 	}
 	
 	function excluir(){
-		$n = $this->apelido;
+		$id= $this->id;
 		include_once("../Controller/conect.php");
-		$sql="DELETE FROM pessoas WHERE apelido='$n'";
+		$sql="DELETE FROM pessoas WHERE id='$id'";
 		$executa= mysqli_query($conn,$sql);
 		mysqli_close($conn);
 		
@@ -83,20 +82,7 @@ class Usuario{
 		unset($_SESSION['usuario']);
 		header("location: ../View/index.php");
 	}
-	
-	
-	function consultar(){	// nao usei ate agora
-		include_once("../Controller/conect.php");
-		$sql="SELECT u.apelido FROM usuario u";
-		$executa= mysqli_query($conn,$sql);
-		
-		while ($reg_pessoas = mysqli_fetch_array($executa)){
-			echo "<tr>";
-			echo ("<td>".$reg_pessoas['apelido']."</td>");
-			echo "<tr>";
-		}
-		mysqli_close($conn);
-	}
+
 	
 	function realizarLogin(){
 		$a = $this->apelido;
@@ -114,11 +100,9 @@ class Usuario{
 			session_start();
 			
 			$id=$ln['id'];
-			$_SESSION['usuario']= $a;
-			$_SESSION['id']= $id;
-			$_SESSION['sala']= "#";
-			$_SESSION['chat']="#";
 			
+			$_SESSION['usuario']= $a;
+			$_SESSION['id']= $id;		
 			$_SESSION['nome']= $ln[1];
 			$_SESSION['sobrenome']= $ln[2];
 			$_SESSION['dataNascimento']= $ln[3];

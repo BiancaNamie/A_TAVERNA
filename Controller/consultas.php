@@ -83,7 +83,8 @@
 			include("conect.php");
 			$id = $_SESSION['id'];
 
-			$select = "SELECT id, apelido FROM usuario u where NOT EXISTS (SELECT * FROM amizade a WHERE a.idUsuario1 = u.id OR a.idUsuario2 = u.id) AND apelido LIKE '%$string%' AND u.id != $id AND NOT EXISTS(SELECT * FROM notificacao n JOIN associado ass ON n.id = ass.idNotificacao WHERE n.IdUsuarioOrigem = $id AND n.tipo = 'PDA' AND ass.IdUsuario = u.id)";
+			
+			$select = "SELECT u.id, u.apelido FROM usuario u WHERE u.id != $id AND NOT EXISTS(select * from  amizade a where(a.idUSuario1 = $id AND a.idUsuario2=u.id)OR(a.idUsuario1 = u.id AND a.idUsuario2 = $id)) AND u.apelido LIKE '%$string%' AND NOT EXISTS(SELECT * FROM notificacao n JOIN associado ass ON n.id = ass.idNotificacao WHERE n.IdUsuarioOrigem = $id AND n.tipo = 'PDA' AND ass.IdUsuario = u.id)";
 			$consulta = mysqli_query($conn, $select);
 
 			mysqli_close($conn);

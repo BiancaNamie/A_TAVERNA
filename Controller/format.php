@@ -5,15 +5,14 @@
 
 	function mensagens(){
 		$id = $_GET['id'];
-		$_SESSION['chat'] = $id;
-
+		
 		$content = new getContent;
 		$consulta  = $content->getMensagensFromChat($id);
 
 		while($ln = mysqli_fetch_array($consulta)){
 			$usuario = $ln['usuario'];
 				$mensagem = $ln['mensagem'];
-				if($usuario == $_SESSION['usuario']){
+				if($usuario == $_SESSION['apelido']){
 					$float = 'right';
 					$from ="";
 				}
@@ -213,38 +212,38 @@
 		$chats = chatsListaChats($id);
 
 		if($tipo == "RPG"){
-			$selecao ='<option value="Chat RPG" selected = "selected">Chat RPG</option>';
+			$selecao ='<option value="RPG" selected = "selected">Chat RPG</option>';
 		}
 		else{
-			$selecao ='<option value="Chat RPG">Chat RPG</option>';
+			$selecao ='<option value="RPG">Chat RPG</option>';
 		}
 
 
 		$html ='<h3>Visualizar Chat<h3/>
+					<form id="formEditarChat">
 					<table border="0" cellspacing="10" cellpadding="0">
 						<tr>
 							<td>Nome:</td>
-							<td><input type="text" value="'.$n.'"></td>
+							<td><input id= "nome" name="nome" type="text" value="'.$n.'"></td>
 						</tr>
 						<tr>
 							<td>Descrição:</td>
-							<td><textarea class = "textArea" style=" width: 100%">'.$d.'</textarea></td>
+							<td><textarea  id= "descricao" class = "textArea" style=" width: 100%" name="descricao">'.$d.'</textarea></td>
 						</tr>						
 						<tr>
 							<td>
 								Tipo de Chat:<br/>
-								<select>
-								  <option value="Chat Simples">Chat simples</option>
+								<select id= "tipo" name="tipo">
+								  <option value="NRM">Chat simples</option>
 								  '.$selecao.'				
 								</select>
 								<br/>
 							</td>
 						</tr>
-						<tr>
-							<td><button>Salvar Alteracoes</button></td>
-						</tr>
-					
-					</table>';
+					</table>
+					</form>
+					<button onclick="updateChat('.$id.')">Salvar Alteracoes</button>';
+
 		echo $html;
 	}
 

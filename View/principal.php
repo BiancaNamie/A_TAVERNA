@@ -6,6 +6,7 @@
 		?>
 		<title>Seja bem vindo</title>
 		<link rel="stylesheet" href="estilo.css?<?php echo time(); ?>"/>
+		<link rel="shortcut icon" type="image/x-icon" href="../icone_a_taverna.ico" />
 		<script src="../jquery-3.4.0.min.js" type="text/javascript"></script>
 
 		<script type = "text/javascript">
@@ -77,9 +78,7 @@
 					getNotificacoes()).done(submenu("popup"));
 				
 			}
-			function getNotificacoes(){
-				$.get("../Controller/format.php",{request:'notificacoes'}).done(function(data){$("#areaBusca").html(data);});
-			}
+			
 			function getArquivo(id){	
 			  $.get("../Controller/format.php",{request:'arquivosBarraArquivos', id: sala}).done(function(data) {$("#repositorio").html(data);}).done(submenu('cabecalhoRepositorio'));
 			}
@@ -90,11 +89,11 @@
 
 			function buscaSala(){
 				var string = document.forms["formBuscaSala"]["string"].value;
-				$.get("../Controller/format.php",{request:'salasPesquisa', string: string}).done(function(data){$("#areaBusca").html(data);});
+				$.get("../Controller/format.php",{request:'salasPesquisa', string: string}).done(function(data){$("#areaBuscaSalas").html(data);});
 			}
 
 			function pedidoIngresso(idSala){
-				$.ajax({type: 'POST',url: '../Controller/participaController.php',data:{request: 'pedido', idSala: idSala}}).done(getNotificacoes());
+				$.ajax({type: 'POST',url: '../Controller/participaController.php',data:{request: 'pedido', idSala: idSala}});
 			}
 
 			function confirmaIngresso(idNotificacao){
@@ -107,12 +106,6 @@
 
 			function confirmaPedidoAmizade(id){
 				$.ajax({type: 'POST',url: '../Controller/amizadeController.php',data:{request:'confirmaPedidoAmizade',id:id}}).done(getNotificacoes());
-			}
-
-			function BuscaAmigo(){
-				var string = document.forms['formBuscaAmigos']['string'].value;
-
-				$.get("../Controller/format.php",{request:'usuarioBusca', string:string}).done(function(data) {$("#areaBuscaAmigos").html(data);});
 			}
 
 			getSala();

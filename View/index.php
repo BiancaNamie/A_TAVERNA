@@ -2,6 +2,7 @@
 	<head>
 		<title>Login</title>
 		<link rel="stylesheet" href="estilo.css?<?php echo time(); ?>"/>
+		<link rel="shortcut icon" type="image/x-icon" href="../icone_a_taverna.ico" />
 		<?php
 			session_start();
 			if(isset($_SESSION['usuario'])){
@@ -15,7 +16,8 @@
 				var senha = document.forms["formLogin"]["senha"].value;
 				
 
-				$.ajax({type: 'POST',url: '../Controller/login.php',data:{nome:nome, senha:senha}});
+				//$.ajax({type: 'POST',url: '../Controller/login.php',data:{nome:nome, senha:senha}});
+				$.ajax({type: 'POST',url: '../Controller/usuarioController.php',data:{request: 'login', nome:nome, senha:senha}});
 				
 			}
 		</script>

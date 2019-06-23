@@ -23,6 +23,12 @@
 		function VisualizarAmigos(){
 			$.get('../Controller/format.php', {request:'amigos'}).done(function(data){$("#areaExibicaoAmigos").html(data);});
 		}
+
+		function BuscaAmigo(){
+			string = document.forms['formBuscaAmigos']['string'].value;
+			$.get("../Controller/format.php",{request:'usuarioBusca', string:string}).done(function(data) {$("#areaBuscaAmigos").html(data);});
+		}
+
 		VisualizarAmigos();
 		
 	</script>

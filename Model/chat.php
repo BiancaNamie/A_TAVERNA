@@ -19,7 +19,7 @@
     		$d = $this->descricao;
     		$t = $this->tipo;
 
-    		include_once("../Controller/conect.php");
+    		include("../Controller/conect.php");
     		$insert = "INSERT INTO chat VALUES (DEFAULT, '$id','$n','$t', '$d')";
 
     		if(mysqli_query($conn, $insert)){
@@ -37,8 +37,8 @@
             $d=$this->descricao;
             $t = $this->tipo;
             
-            include_once("../Controller/conect.php");
-            $sql="UPDATE chat SET nome='$n', descricao='$d', tipo = '$t' WHERE id='$id'";
+            include("../Controller/conect.php");
+            $sql="UPDATE chat SET nome='$n', descricao='$d', tipo = '$t' WHERE id=$id";
 
             if(mysqli_query($conn,$sql)){
                 echo "Atualizado com sucesso.";
@@ -60,13 +60,14 @@
     
 
     	function find($id){
-    		include_once("../Controller/conect.php");
+    		include("../Controller/conect.php");
 
 			$sql="SELECT * FROM chat c where id = '$id'";
 			$executa= mysqli_query($conn,$sql);
 			
 			$ln= mysqli_fetch_array($executa);
 			$chat = new chat;
+            $chat->__set('id', $ln['id']);
 			$chat->__set('nome', $ln['nome']);
 			$chat->__set('descricao', $ln['descricao']);
 			$chat->__set('tipo', $ln['tipo']);

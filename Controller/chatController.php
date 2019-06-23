@@ -1,29 +1,44 @@
 <?php
 	include("../Model/chat.php");
+	include("sessionCheker.php");
 
-	class chatController{
-		
-		function insereChat(){
+	function insereChat($idSala,$nome,$descricao,$tipo){
 
-			$idSala = $_POST['idSala'];
-			$nome =$_POST['nome'];
-			$descricao = $_POST['descricao'];
-			$tipo =  $_POST['tipo'];
+		$novo_chat = new chat;
+		$novo_chat->__set('idSala', $idSala);
+		$novo_chat->__set('nome', $nome);
+		$novo_chat->__set('descricao', $descricao);
+		$novo_chat->__set('tipo', $tipo);
 
-			$novo_chat = new chat;
-			$novo_chat->__set('idSala', $idSala);
-			$novo_chat->__set('nome', $nome);
-			$novo_chat->__set('descricao', $descricao);
-			$novo_chat->__set('tipo', $tipo);
+		$result = $novo_chat ->criar();
 
-			$result = $novo_chat ->criar();
-
-			echo $result;
-		}
+		echo $result;
 	}
 
-	$controlador = new chatController;
-	$controlador->insereChat();
+	function updateChat($id,$nome,$descricao,$tipo){
+
+		$chat = new chat;
+		$chat = $chat->find($id);
+		$chat->__set('nome', $nome);
+		$chat->__set('descricao',$descricao);
+		$chat->__set('tipo',$tipo);
+
+		echo $chat->alterar();
+	}
+	
+
+	switch ($_POST['request']) {
+		case 'insereChat':
+			insereChat($_POST['idSala'],$_POST['nome'],$_POST['descricao'],$_POST['tipo']);
+			break;
+		case 'updateChat':
+			updateChat($_POST['id'],$_POST['nome'],$_POST['descricao'],$_POST['tipo']);
+			break;
+		
+		default:
+			# code...
+			break;
+	}
 
 
 ?>

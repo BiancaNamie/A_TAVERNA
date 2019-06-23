@@ -6,6 +6,7 @@
 	include('../Model/sala.php');
 
 	function pedido($idSala){
+
 		include('consultas.php');
 		$nova_notificacao = new notificacao;
 		
@@ -16,7 +17,7 @@
 		$sala = $sala->find($idSala);
 		$nome_sala = $sala->__get('nome');
 
-		$nova_notificacao->__set('mensagem', $apelido_usuario_origem." quer ser entrar na sua sala ".$nome_sala);
+		$nova_notificacao->__set('mensagem', $apelido_usuario_origem." quer entrar na sua sala".$nome_sala);
 		$nova_notificacao->__set('usuarioOrigem', $usuario_origem);
 		$nova_notificacao->__set('tipo', 'PIS');
 		$nova_notificacao->__set('idSala', $idSala);
