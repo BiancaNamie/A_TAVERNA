@@ -144,18 +144,16 @@
 		}
 
 		function criarSala(){
-			idSala = salaSelecionada;
 			nome = document.forms['formCriarSala']['nome'].value;
-						descricao = document.forms['formCriarSala']['descricao'].value;
+			descricao = document.forms['formCriarSala']['descricao'].value;
 
-			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{request:'insereSala', nome: nome, descricao: descricao}});
+			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{request:'insereSala', nome: nome, descricao: descricao}}).done(minhasSalas()).done(AtivaSuasSalas()).done(getSala());
 		}
 
 		function updateSala(id){
 			nome = document.forms['formEditarSala']['nome'].value;
 			descricao = document.forms['formEditarSala']['descricao'].value;
-			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{ request:'updateSala',id: id, nome: nome, descricao: descricao}}).done(
-			AtivaVisualizarSala('voltar'));
+			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{ request:'updateSala',id: id, nome: nome, descricao: descricao}}).done(minhasSalas()).done(AtivaSuasSalas()).done(getSala());
 		}
 
 		function updateChat(id){
@@ -172,7 +170,7 @@
 
 		function excluirSala(){
 			id = salaSelecionada;
-			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{request:'excluirSala', id:id}}).done(AtivaSuasSalas());
+			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{request:'excluirSala', id:id}}).done(minhasSalas()).done(AtivaSuasSalas()).done(getSala());
 		}
 
 		minhasSalas();
@@ -213,13 +211,13 @@
 			
 			<div id='CriarSala' style ="display: none;">
 				<h3>Criar Sala</h3>
-				<form method="post" action="../Controller/criaSala.php">
+				<form id ='formCriarSala'>
 					Nome da nova sala <br/>
-					<input type="text" name="nome" ><br/><br/>
+					<input type="text" id='nome' name="nome" ><br/><br/>
 					Descricao<br/>
-					<textarea rows = 4 name="descricao" class = "textArea"></textarea><br/>
-					<input type="submit" value="Criar Sala" >
-				</form>				
+					<textarea id ='descricao' rows = 4 name="descricao" class = "textArea"></textarea><br/>
+				</form>	
+				<button onclick="criarSala()">Criar Sala</button>			
 				
 			</div>
 
