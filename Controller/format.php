@@ -85,12 +85,12 @@
 			$id = $ln['id'];
 			$tipo = $ln['tipo'];
 			if($tipo== 'RPG'){
-				echo"<div id='$nome' style='position: fixed;'>".
+				echo"<div id='$nome'>".
 						'<a href="#" onclick = exibeChatRPG('.$id.');>'."$nome <a/>
 					</div><br/>";
 			}
 			else{
-				echo"<div id='$nome' style='position: fixed;'>".
+				echo"<div id='$nome'>".
 						'<a href="#" onclick = exibeChat('.$id.');>'."$nome <a/>
 					</div><br/>";
 			}

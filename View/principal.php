@@ -24,8 +24,14 @@
        			if(e.style.display == 'block')
             		e.style.display = 'none';
        		}
-       		function enviar(){
-       			var mensagem = document.forms["envio"]["mensagem"].value;
+       		function enviar(str){
+
+       			mensagem = document.forms["envio"]["mensagem"].value;  
+
+       			if(str == 'RPG'){
+       				mensagem = document.forms["envioRPG"]["mensagem"].value; 
+       			}  			
+       			
 				$.ajax({type: 'POST',url: '../Controller/mensagemController.php',data:{request: 'enviar', mensagem: mensagem, idChat: chat}}, ).done(atualizarScroll(chat));
        		}
        		function enviaArquivo(){
@@ -163,7 +169,7 @@
 				</div>
 			</div>
 			<div id ="barraChats">
-				
+				<h4>Chats</h4>Selecione uma sala
 			</div>
 			<div id="corpo">
 				<br/>
@@ -178,19 +184,17 @@
 					<br/>
 					<form method='post' id='envio'>
 						<textarea rows = 5 cols = 80 class = 'textArea' id = 'mensagem' name='mensagem' class = 'textArea' required autofocus></textarea>
-						<?php
-							echo "<button type='reset' class ='botao' onClick='enviar()'>Enviar</button>";
-						?>
+						<button type='reset' class ='botao' onClick="enviar('NRM')">Enviar</button>
 					</form>
 				</div>
 				<div id='entradaRPG' style ="display: none;">
 					<br/>
-					<form method='post' id='envio'>
+					<form method='post' id="envioRPG">
 						<textarea rows = 5 cols = 80 class = 'textArea' id = 'mensagem' name='mensagem' class = 'textArea' required autofocus></textarea>
-						<?php
-							echo "<button type='reset' class ='botao' onClick='enviar()'>Enviar</button>";
-							echo "<button type='reset' class ='botao' onClick='popupDados()'>Rolar Dados</button>";
-						?>
+						
+						<button type='reset' class ='botao' onClick="enviar('RPG')">Enviar</button>
+						<button type='reset' class ='botao' onClick='popupDados()'>Rolar Dados</button>
+						
 					</form>
 				</div>
 				
