@@ -12,7 +12,13 @@
 
 	}
 
-	function jogarDados(){
+	function jogarDados($idChat, $mensagem){
+		$nova_mensagem = new mensagem;
+		$nova_mensagem->idChat = $idChat;
+		$nova_mensagem->usuario = $_SESSION['apelido']." -Rolagem de dados ";
+		$nova_mensagem->mensagem = $mensagem;
+
+		echo $nova_mensagem->criar();
 
 	}
 
@@ -20,8 +26,8 @@
 		case 'enviar':
 			enviarMensagem($_POST['idChat'], $_POST['mensagem']);
 			break;
-		case 'jogardados':
-			jogarDados();
+		case 'jogarDados':
+			jogarDados($_POST['idChat'], $_POST['mensagem']);
 			break;
 		default:
 			# code...

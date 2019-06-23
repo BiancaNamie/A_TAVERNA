@@ -12,7 +12,7 @@
 		while($ln = mysqli_fetch_array($consulta)){
 			$usuario = $ln['usuario'];
 				$mensagem = $ln['mensagem'];
-				if($usuario == $_SESSION['apelido']){
+				if($usuario == $_SESSION['apelido'] || $usuario == $_SESSION['apelido']." -Rolagem de dados "){
 					$float = 'right';
 					$from ="";
 				}

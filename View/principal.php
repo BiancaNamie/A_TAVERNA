@@ -78,6 +78,10 @@
 					getNotificacoes()).done(submenu("popup"));
 				
 			}
+
+			function popupDados(){
+				$.get("popupDados.php", function(data) {$("#popup").html(data);}).done(submenu("popup"));
+			}
 			
 			function getArquivo(id){	
 			  $.get("../Controller/format.php",{request:'arquivosBarraArquivos', id: sala}).done(function(data) {$("#repositorio").html(data);}).done(submenu('cabecalhoRepositorio'));
@@ -164,6 +168,7 @@
 						<textarea class = 'textArea' id = 'mensagem' name='mensagem' class = 'textArea' required autofocus></textarea>
 						<?php
 							echo "<button type='reset' class ='botao' onClick='enviar()'>Enviar</button>";
+							echo "<button type='reset' class ='botao' onClick='popupDados()'>Rolar Dados</button>";
 						?>
 					</form>
 				</div>
