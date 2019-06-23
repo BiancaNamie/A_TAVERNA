@@ -25,7 +25,7 @@
        		}
        		function enviar(){
        			var mensagem = document.forms["envio"]["mensagem"].value;
-				$.ajax({type: 'POST',url: '../Controller/enviar.php',data:{mensagem: mensagem}}, ).done(atualizarScroll(chat));
+				$.ajax({type: 'POST',url: '../Controller/mensagemController.php',data:{request: 'enviar', mensagem: mensagem, idChat: chat}}, ).done(atualizarScroll(chat));
        		}
        		function enviaArquivo(){
        			var form = $('#formArquivo')[0];
@@ -34,7 +34,7 @@
              	arquivo.set('idSala', sala);
       			 
 				$.ajax({type: 'POST',url: '../Controller/arquivoController.php', data:arquivo , processData: false,
-                    contentType: false}).done(function(data){$('#barraInferior').html(data)});
+                    contentType: false}).done(getArquivo(sala));
        		}
        		function exibeChat(id){
        			var b = document.getElementById('entrada');
@@ -81,7 +81,7 @@
 				$.get("../Controller/format.php",{request:'notificacoes'}).done(function(data){$("#areaBusca").html(data);});
 			}
 			function getArquivo(id){	
-			  $.get("../Controller/format.php",{request:'arquivosBarraArquivos', id: sala}).done(function(data) {$("#repositorio").html(data);});
+			  $.get("../Controller/format.php",{request:'arquivosBarraArquivos', id: sala}).done(function(data) {$("#repositorio").html(data);}).done(submenu('cabecalhoRepositorio'));
 			}
 			function scroll(){
 				var objDiv = document.getElementById("corpo");
@@ -94,20 +94,19 @@
 			}
 
 			function pedidoIngresso(idSala){
-				$.ajax({type: 'POST',url: '../Controller/EnviarPedidoIngresso.php',data:{idSala: idSala}});
+				$.ajax({type: 'POST',url: '../Controller/participaController.php',data:{request: 'pedido', idSala: idSala}}).done(getNotificacoes());
 			}
 
-			function insereParticipa(idUsuario, idSala, tipo){
-				$.ajax({type: 'POST',url: '../Controller/insereParticipa.php',data:{idUsuario: idUsuario, idSala: idSala, tipo: tipo}});
+			function confirmaIngresso(idNotificacao){
+				$.ajax({type: 'POST',url: '../Controller/participaController.php',data:{request:'confirmaIngresso', idn: idNotificacao}}).done(getNotificacoes());
 			}
-
 
 			function pedidoAmizade(id){
-				$.ajax({type: 'POST',url: '../Controller/amizadeController.php',data:{request:'pedidoAmizade',id:id}});
+				$.ajax({type: 'POST',url: '../Controller/amizadeController.php',data:{request:'pedidoAmizade',id:id}}).done(getNotificacoes());
 			}
 
 			function confirmaPedidoAmizade(id){
-				$.ajax({type: 'POST',url: '../Controller/amizadeController.php',data:{request:'confirmaPedidoAmizade',id:id}});
+				$.ajax({type: 'POST',url: '../Controller/amizadeController.php',data:{request:'confirmaPedidoAmizade',id:id}}).done(getNotificacoes());
 			}
 
 			function BuscaAmigo(){
@@ -142,12 +141,14 @@
 				
 			</div>
 			<div id="barraLateralDireita">
-				<br/><h3>Arquivos da sala</h3>
+				<div id="cabecalhoRepositorio" style="display: none;">
+					<br/><h3>Arquivos da sala</h3>
 
-				<form type= "file" method="Post" enctype="multipart/form-data" action ="../Controller/arquivoController.php" id= 'formArquivo'>
-					<input type="file" name="arquivo" accept = 'media_type'><br/>
-					<button type = "reset" onclick="enviaArquivo()">Enviar</button>
-				</form>
+					<form type= "file" method="Post" enctype="multipart/form-data" action ="../Controller/arquivoController.php" id= 'formArquivo'>
+						<input type="file" name="arquivo" accept = 'media_type'><br/>
+						<button type = "reset" onclick="enviaArquivo()">Enviar</button>
+					</form>
+				</div>
 
 				<div id = "repositorio">
 				</div>

@@ -49,12 +49,13 @@
     		$a = $this->arquivo;
     		header("Content-Type:".$t);
 			echo $a;
-
     	}
     	function find($id){
     		include('../Controller/conect.php');
+
     		$sql= "SELECT * FROM arquivo WHERE id= '$id'";
-    		$ln = mysqli_fetch_array(mysqli_query($conn, $sql));
+    		$result =  mysqli_query($conn, $sql);
+            $ln = mysqli_fetch_array($result);
 
     		$arquivo = new arquivo;
     		$arquivo->__set('id', $ln['id']);

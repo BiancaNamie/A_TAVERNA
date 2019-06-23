@@ -41,16 +41,38 @@
 		$arquivo->excluir();
 	}
 
-	switch ($_POST['request']) {
-		case 'enviaArquivo':
-			enviaArquivo($_POST['idSala']);
-			break;
-		case 'excluiArquivo':
-			excluiArquivo($_POST['id']);
-			break;
-		default:
-			# code...
-			break;
+	function visualizarArquivo($id){
+		$arquivo = new arquivo;
+		$arquivo= $arquivo->find($id);
+		$arquivo ->visualizar();
+
 	}
+
+	if(isset($_POST['request'])){
+
+		switch ($_POST['request']) {
+			case 'enviaArquivo':
+				enviaArquivo($_POST['idSala']);
+				break;
+			case 'excluiArquivo':
+				excluiArquivo($_POST['id']);
+				break;
+			default:
+				# code...
+				break;
+		}
+	}
+	if(isset($_GET['request'])){
+		
+		switch ($_GET['request']) {
+			case 'visualizar':
+				visualizarArquivo($_GET['id']);
+				break;
+			default:
+				# code...
+				break;
+		}
+	}
+
 
 ?>

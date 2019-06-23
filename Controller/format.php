@@ -97,7 +97,7 @@
 		
 		while($ln = mysqli_fetch_array($consulta)){
 			$nome = $ln['nome'];
-			echo "<br/> <a target = '_blank' href = ../Controller/visualizador.php?id='$ln[id]'>$nome<a/>";
+			echo "<br/> <a target = '_blank' href = ../Controller/arquivoController.php?id='$ln[id]'&request='visualizar'>$nome<a/>";
 		}
 		
 
@@ -118,11 +118,11 @@
 			$sala =$ln['idSala'];
 
 			if($tipo=='PIS'){
-				$insere = 'insereParticipa('.$usuarioOrigem.', '.$sala.',"'."NML".'")';
+				$insere = 'confirmaIngresso('.$id.')';
 				echo "<div>$mensagem <button onclick='".$insere."'> aceitar</button></div>";
 			}
 			if($tipo=='PDA'){
-				$insere = "confirmaPedidoAmizade($id)";
+				$insere = 'confirmaPedidoAmizade('.$id.')';
 				echo "<div>$mensagem <button onclick='".$insere."'> aceitar</button></div>";
 			}
 		}
