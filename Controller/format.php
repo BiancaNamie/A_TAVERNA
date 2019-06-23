@@ -97,9 +97,10 @@
 		
 		while($ln = mysqli_fetch_array($consulta)){
 			$nome = $ln['nome'];
-			echo "<br/> <a target = '_blank' href = ../Controller/arquivoController.php?id='$ln[id]'&request='visualizar'>$nome<a/>";
+			$id = $ln['id'];
+			$visualizar = '"visualizar"';
+			echo "<br/> <a target = '_blank' href = '../Controller/arquivoController.php?id=$id&request=visualizar'>$nome<a/>";
 		}
-		
 
 	}
 
