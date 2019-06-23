@@ -6,6 +6,7 @@
 	<script type = "text/javascript">
 
 		var salaSelecionada;
+		var chatSelecionado;
 
 		function AtivaSuasSalas(el) {
 			var display = document.getElementById(el).style.display;
@@ -45,8 +46,10 @@
 		}
 
 		function AtivaVisualizarSala(id) {
-			salaSelecionada = id;
-			$.get('../Controller/format.php',{request: 'visualisarSala', id: id}).done(function(data){$('#VisualizarSala').html(data);});
+			if(id != 'voltar'){
+				salaSelecionada = id;
+			}
+			$.get('../Controller/format.php',{request: 'visualisarSala', id: salaSelecionada}).done(function(data){$('#VisualizarSala').html(data);});
 
 			var display = document.getElementById('VisualizarSala').style.display;
 			if(display == "none"){
@@ -91,20 +94,29 @@
 			$.get('../Controller/format.php', {request:'minhasSalas'}).done(function(data){$('#areaExibicao').html(data);});
 		}
 
-		function criarSala(){
+		function criarChat(){
 			idSala = salaSelecionada;
 			nome = document.forms['formCriarChat']['nome'].value;
 			tipo = document.forms['formCriarChat']['tipo'].value;
 			descricao = document.forms['formCriarChat']['descricao'].value;
 
-			$.ajax({type: 'POST',url: '../Controller/chatController.php', data:{request:'insereSala', nome: nome, descricao: descricao, tipo: tipo, idSala: idSala}});
+			$.ajax({type: 'POST',url: '../Controller/chatController.php', data:{request:'insereChat', nome: nome, descricao: descricao, tipo: tipo, idSala: idSala}});
+			AtivaVisualizarSala('voltar');
+		}
+
+		function criarSala(){
+			idSala = salaSelecionada;
+			nome = document.forms['formCriarSala']['nome'].value;
+						descricao = document.forms['formCriarSala']['descricao'].value;
+
+			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{request:'insereSala', nome: nome, descricao: descricao}});
 		}
 
 		function updateSala(id){
 			nome = document.forms['formEditarSala']['nome'].value;
 			descricao = document.forms['formEditarSala']['descricao'].value;
-
-			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{ request:'updateSala',id: id, nome: nome, descricao: descricao}});
+			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{ request:'updateSala',id: id, nome: nome, descricao: descricao}}).done(
+			AtivaVisualizarSala('voltar'));
 		}
 
 		function updateChat(id){
@@ -113,6 +125,7 @@
 			tipo = document.forms['formEditarChat']['tipo'].value;
 
 			$.ajax({type: 'POST',url: '../Controller/chatController.php', data:{ request:'updateChat',id: id, nome: nome,tipo: tipo ,descricao: descricao}});
+			 AtivaVisualizarSala('voltar');
 		}
 
 		minhasSalas();
@@ -184,7 +197,7 @@
 
 			<div id='CriarChat' style ="display: none;">
 				<h3>Criar Chat<h3/>
-					<form id = "formCriarChat" method="POST">
+					<form id = "formCriarChat">
 						<table border="0" cellspacing="10" cellpadding="0">
 							<tr>
 								<td>Nome:</td>
@@ -205,8 +218,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td><button type = "reset" onclick="criarSala()">Criar Chat</button></td>
-								<td><button type="reset">Cancelar</button></td>
+								<td><button type = "reset" onclick="criarChat()">Criar Chat</button></td>
+								<td><button type="reset" onclick="AtivaVisualizarSala('voltar')">Cancelar</button></td>
 							</tr>
 						
 						</table>
