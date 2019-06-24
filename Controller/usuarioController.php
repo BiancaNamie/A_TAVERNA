@@ -36,6 +36,7 @@
 		include_once("../Model/usuario.php");
 		session_start();
 
+		echo "isso é um fucking teste!"; 
 		$Usuario = new Usuario();
 
 		$Usuario->__set("apelido",$_SESSION['apelido']);

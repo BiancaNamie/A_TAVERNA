@@ -32,10 +32,14 @@
 					<input type="text" id = "nome" name= "nome"/><br/><br/>
 					Senha: <br>
 					<input type= "password" id= "senha" name="senha"/><br/><br/>
+								<?php  if (isset($_GET['msg'])){ 
+							echo "<font color='red'>".$_GET['msg']."</font><br/>";
+						} ?>
 					<input type="submit" value="entrar" class ="botao"/><br/><br/>
 				</form>
+	
 				
-				<a href="TelaCadastro.php">Cadastro</a>
+				Não possui conta?<a href="TelaCadastro.php">Cadastre-se aqui</a>
 			</div >
 		</div>
 	<body>

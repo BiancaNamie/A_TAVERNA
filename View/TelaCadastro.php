@@ -19,7 +19,7 @@
 						<table width="40%" align="center">
 							<tr>
 								<td width="10%">Apelido: </td>
-								<td><input type="text" name="apelido" class="campo2" maxlength="40" required autofocus/></td>
+								<td><input type="text" name="apelido" class="campo2" maxlength="40" required autofocus /></td>
 							</tr>
 							<tr>
 								<td width="10%">Nome: </td>
@@ -39,9 +39,12 @@
 							</tr>
 							<tr>
 								<td width="10%">Senha: </td>
-								<td><input type="password" name="senha" class="campo2" maxlength="40" required /></td>
+								<td><input type="password" name="senha" class="campo2"  min="8" maxlength="40" placeholder="Min 8 caracteres, 1 letra maiuscula, 1 minuscula, 1 numero" required /></td>
 							</tr>
-							
+							<tr>
+								<td width="10%">Confirme sua Senha: </td>
+								<td><input type="password" name="senha2" class="campo2" min="8" maxlength="40" required /></td>
+							</tr>							
 							<br/><br/>
 							
 							<tr>

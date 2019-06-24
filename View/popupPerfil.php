@@ -51,11 +51,11 @@
 
 			<div id='Editar' style ="display: none;">
 				<h3>Editar Perfil</h3>
-				<form method="POST" action="../Controller/editarCadastro.php">
+				<form method="POST" action="../Controller/editarCadastro.php" >
 						<table border="0" cellspacing="0" cellpadding="0">
 							<tr>
 								<td>Apelido: </td>
-								<td><input type="text" name="apelido" class="campo3" maxlength="50" value=<?php echo $_SESSION['usuario'] ?> Readonly required /></td>
+								<td><input type="text" name="apelido" class="campo3" maxlength="50" value=<?php echo $_SESSION['usuario'] ?> required /></td>
 							</tr>
 							<tr>
 								<td>Nome: </td>
@@ -76,6 +76,14 @@
 							<tr>
 								<td>Senha Atual: </td>
 								<td><input type="password" name="senha" class="campo3" maxlength="50" placeholder="Digite sua senha" required /></td>
+							</tr>
+							<tr>
+								<td>Nova Senha: </td>
+								<td><input type="password" name="NovaSenha" class="campo3" min="8" maxlength="50" /></td>
+							</tr>
+							<tr>
+								<td>Confirmar Nova Senha: </td>
+								<td><input type="password" name="NovaSenha2" class="campo3"  maxlength="50" /></td>
 							</tr>
 
 							<br/><br/>
