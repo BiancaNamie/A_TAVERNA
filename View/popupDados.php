@@ -29,7 +29,10 @@
 			stringFinal="";
 			soma=0;
 			for(i=0; i<numeroDados.length; i++){
-				resultado = ((Math.floor(Math.random() * valores[i])+1)*numeroDados[i]);
+				resultado=0;
+				for(j=0; j<numeroDados[i];j++){
+					resultado += ((Math.floor(Math.random() * valores[i])+1));
+				}
 				soma += resultado;
 				if(resultado != 0){
 					if(stringFinal!= ""){
