@@ -48,6 +48,8 @@
        			chat = id;
        			b.style.display ='block';
        			c.style.display ='none';
+       			hide('cabecalhoRepositorio');
+       			hide('repositorio');
        			clearInterval(interval);
        			interval = setInterval("atualizar("+id+")", 600);
        			atualizarScroll(id);
@@ -55,6 +57,8 @@
        		function exibeChatRPG(id){
        			var b = document.getElementById('entradaRPG');
        			var c = document.getElementById('entrada');
+       			submenu('cabecalhoRepositorio');
+       			submenu('repositorio');
        			chat = id;
        			b.style.display ='block';
        			c.style.display ='none';
@@ -103,7 +107,7 @@
 			}
 			
 			function getArquivo(id){	
-			  $.get("../Controller/format.php",{request:'arquivosBarraArquivos', id: sala}).done(function(data) {$("#repositorio").html(data);}).done(submenu('cabecalhoRepositorio'));
+			  $.get("../Controller/format.php",{request:'arquivosBarraArquivos', id: sala}).done(function(data) {$("#repositorio").html(data);});
 			}
 			function scroll(){
 				var objDiv = document.getElementById("corpoMensagens");
@@ -166,7 +170,7 @@
 					</form>
 				</div>
 
-				<div id = "repositorio">
+				<div id = "repositorio" style="display: none">
 				</div>
 			</div>
 			<div id ="barraChats" style="display: none">
