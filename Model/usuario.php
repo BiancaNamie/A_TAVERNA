@@ -181,7 +181,7 @@ class Usuario{
 				$_SESSION['dataNascimento']= $d;
 				$_SESSION['email']= $e;
 				
-				//header("location: ../View/principal.php");
+				header("location: ../View/principal.php");
 			} else{
 				echo "ERROR: Could not able to execute $sql. " . $conn->error;
 			}

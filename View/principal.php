@@ -63,10 +63,11 @@
        			atualizarScroll(id);
        		}
        		function atualizar(id){	
-			  $.get("../Controller/format.php",{request:'mensagens', id:id}).done(function(data) {$("#corpo").html(data);});		  
+			  $.get("../Controller/format.php",{request:'mensagens', id:id}).done(function(data) {$("#corpoMensagens").html(data);});
+			  	document.getElementById('barraSuperior').innerHTML= '<strong>'+(document.getElementById('sala'+sala).textContent)+'</strong><br/>'+(document.getElementById('chat'+id).textContent);			  
 			}
 			function atualizarScroll(id){	
-			  $.get("../Controller/format.php",{request:'mensagens', id:id}).done(function(data) {$("#corpo").html(data);}).done(scroll);		  
+			  $.get("../Controller/format.php",{request:'mensagens', id:id}).done(function(data) {$("#corpoMensagens").html(data);}).done(scroll);		  
 			}
        		function getSala(){	
 			  $.get("../Controller/format.php",{request:'salasBarraLateral'}).done(function(data) {$("#barraLateral").html(data);});
@@ -104,7 +105,7 @@
 			  $.get("../Controller/format.php",{request:'arquivosBarraArquivos', id: sala}).done(function(data) {$("#repositorio").html(data);}).done(submenu('cabecalhoRepositorio'));
 			}
 			function scroll(){
-				var objDiv = document.getElementById("corpo");
+				var objDiv = document.getElementById("corpoMensagens");
 				objDiv.scrollTop = objDiv.scrollHeight;
 			}
 
@@ -171,10 +172,15 @@
 				<h4>Chats</h4>
 			</div>
 			<div id="corpo">
-				<br/>
-				<br/>
-				<br/>
-				As mensagens dos chats que você participa aparecerão aqui
+				<div id="barraSuperior">
+
+				</div>
+				<div id="corpoMensagens">
+					<br/>
+					<br/>
+					<br/>
+					As mensagens dos chats que você participa aparecerão aqui
+				</div>
 				
 			</div>
 
