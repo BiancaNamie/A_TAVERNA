@@ -35,16 +35,19 @@
 		$consulta = $content->getSalasFromUsuario($_SESSION['id']);
 
 		echo '<h4> Salas </h4>';
+		$i=0;
 
 		while($ln = mysqli_fetch_array($consulta)){
 			$nome = $ln['nome'];
 			$id = $ln['id'];
 			$sala = "sala$id";
 			$chats = $sala.'chats';
+			$i++;
 
-			$html= "<div id='sala$id'>".
-						'<a href="#" onclick = "getChat('.$id.');">'."$nome <a/>".
-					"</div><br/>";
+
+			$html= "<div tabindex='$i' id='sala$id' class= 'clicavel' onclick = getChat('$id')>	
+					$nome
+					</div><br/>";
 			echo $html;
 		}
 	}
@@ -79,20 +82,23 @@
 
 		echo '<h4>Chats</h4>';
 
+		$i=0;
+
 		
 		while($ln = mysqli_fetch_array($consulta)){
 			$nome = $ln['nome'];
 			$id = $ln['id'];
 			$tipo = $ln['tipo'];
+			$i++;
 			if($tipo== 'RPG'){
-				echo"<div id='$nome'>".
-						'<a href="#" onclick = exibeChatRPG('.$id.');>'."$nome <a/>
+				echo"<div id='$nome' tabindex='$i' class='clicavel' onclick = exibeChatRPG('.$id.')>
+							$nome
 					</div><br/>";
 			}
 			else{
-				echo"<div id='$nome'>".
-						'<a href="#" onclick = exibeChat('.$id.');>'."$nome <a/>
-					</div><br/>";
+				echo"<div id='$nome' tabindex='$i' class='clicavel' onclick = exibeChat('.$id.')>".
+						"$nome".
+					"</div><br/>";
 			}
 
 		}
@@ -102,13 +108,16 @@
 
 		$content= new getContent;
 		$consulta = $content->getArquivosFromSala($sala);
+		$i =0;
 
 		
 		while($ln = mysqli_fetch_array($consulta)){
+			$i++;
 			$nome = $ln['nome'];
 			$id = $ln['id'];
 			$visualizar = '"visualizar"';
-			echo "<br/> <a target = '_blank' href = '../Controller/arquivoController.php?id=$id&request=visualizar'>$nome<a/>";
+			//echo "<br/><div tabindex='$i' class = 'clicavel'> <a target = '_blank' href = '../Controller/arquivoController.php?id=$id&request=visualizar'>$nome<a/></div>";
+			echo "<a target = '_blank' href = '../Controller/arquivoController.php?id=$id&request=visualizar'><div tabindex='$i' class = 'clicavel'> $nome</div><a/>";
 		}
 
 	}
