@@ -34,16 +34,20 @@
 		$content = new getContent;
 		$consulta = $content->getSalasFromUsuario($_SESSION['id']);
 
+		echo '<h4> Salas </h4>';
+		$i=0;
+
 		while($ln = mysqli_fetch_array($consulta)){
 			$nome = $ln['nome'];
 			$id = $ln['id'];
 			$sala = "sala$id";
 			$chats = $sala.'chats';
+			$i++;
 
-			$html= "<br/>
-					<div id='sala$id'>".
-						'<a href="#" onclick = "getChat('.$id.');">'."$nome <a/>".
-					"</div>";
+
+			$html= "<div tabindex='$i' id='sala$id' class= 'clicavel' onclick = getChat('$id')>	
+					$nome
+					</div><br/>";
 			echo $html;
 		}
 	}
@@ -76,15 +80,27 @@
 		$content= new getContent;
 		$consulta = $content->getChatsFromSala($sala);
 
+		echo '<h4>Chats</h4>';
+
+		$i=0;
+
 		
 		while($ln = mysqli_fetch_array($consulta)){
 			$nome = $ln['nome'];
 			$id = $ln['id'];
+			$tipo = $ln['tipo'];
+			$i++;
+			if($tipo== 'RPG'){
+				echo"<div id='$nome' tabindex='$i' class='clicavel' onclick = exibeChatRPG('$id')>
+							$nome
+					</div><br/>";
+			}
+			else{
+				echo"<div id='$nome' tabindex='$i' class='clicavel' onclick = exibeChat('$id')>
+						$nome
+					</div><br/>";
+			}
 
-			echo"<br/>
-				<div id='$nome' style='position: fixed;'>".
-					'<a href="#" onclick = exibeChat('.$id.');>'."$nome <a/>
-				</div>";
 		}
 	}
 
@@ -92,13 +108,16 @@
 
 		$content= new getContent;
 		$consulta = $content->getArquivosFromSala($sala);
+		$i =0;
 
 		
 		while($ln = mysqli_fetch_array($consulta)){
+			$i++;
 			$nome = $ln['nome'];
 			$id = $ln['id'];
 			$visualizar = '"visualizar"';
-			echo "<br/> <a target = '_blank' href = '../Controller/arquivoController.php?id=$id&request=visualizar'>$nome<a/>";
+			//echo "<br/><div tabindex='$i' class = 'clicavel'> <a target = '_blank' href = '../Controller/arquivoController.php?id=$id&request=visualizar'>$nome<a/></div>";
+			echo "<a target = '_blank' href = '../Controller/arquivoController.php?id=$id&request=visualizar'><div tabindex='$i' class = 'clicavel'> $nome</div><a/>";
 		}
 
 	}
@@ -187,15 +206,16 @@
 					Nome:  <br/>
 					<input type="text" name="nome" id ="nome" value="'.$n.'"><br/><br/>
 					Descricao<br/>
-					<textarea name="descricao" class = "textArea">'.$d.'</textarea><br/>
+					<textarea rows = 3 name="descricao" class = "textArea">'.$d.'</textarea><br/>
+					</form>
 					Chats
-					<div id="areaExibicaoChats" style="background-color: FFFFFF; width: 90%; height: 30%;">
+					<div id="areaExibicaoChats" style=" overflow: auto; background-color: FFFFFF; width: 90%; height: 25%;">
 						'.$chats.'
 	
 					</div>
-					</form>
 					<button onclick="AtivaCriarChat()">adicionar chat</button> 
-					<button onclick="updateSala('.$id.')">Salvar alterações </button>';
+					<button onclick="updateSala('.$id.')">Salvar alterações </button>
+					<button onclick="AtivaExcluirSala('.$id.')">Excluir Sala </button>';
 	}
 
 
@@ -228,7 +248,7 @@
 						</tr>
 						<tr>
 							<td>Descrição:</td>
-							<td><textarea  id= "descricao" class = "textArea" style=" width: 100%" name="descricao">'.$d.'</textarea></td>
+							<td><textarea  rows = 4 id= "descricao" class = "textArea" style=" width: 100%" name="descricao">'.$d.'</textarea></td>
 						</tr>						
 						<tr>
 							<td>
@@ -242,7 +262,8 @@
 						</tr>
 					</table>
 					</form>
-					<button onclick="updateChat('.$id.')">Salvar Alteracoes</button>';
+					<button onclick="updateChat('.$id.')">Salvar Alteracoes</button>
+					<button onclick = AtivaExcluirChat()>Excluir chat</button>';
 
 		echo $html;
 	}
@@ -270,7 +291,7 @@
 
 
 			$final =$final. "<br/>
-				<div id='$nome' style='position: fixed;'>
+				<div id='$nome' >
 					$nome <button onclick='AtivaVisualisarChat($id)'>Editar</button>
 				</div>";
 		}

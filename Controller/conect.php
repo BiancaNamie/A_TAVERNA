@@ -1,4 +1,5 @@
 <?php
+
 $servername = "localhost";
 $database = "taverna";
 $username = "root";

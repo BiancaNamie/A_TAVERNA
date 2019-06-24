@@ -8,15 +8,17 @@
 		var salaSelecionada;
 		var chatSelecionado;
 
-		function AtivaSuasSalas(el) {
-			var display = document.getElementById(el).style.display;
+		function AtivaSuasSalas() {
+			var display = document.getElementById('SuasSalas').style.display;
 			if(display == "none"){
-				document.getElementById(el).style.display = 'block';
+				document.getElementById('SuasSalas').style.display = 'block';
 				document.getElementById('CriarSala').style.display = 'none';
 				document.getElementById('BuscarSalas').style.display = 'none';
 				document.getElementById('VisualizarSala').style.display = 'none';
 				document.getElementById('CriarChat').style.display = 'none';
 				document.getElementById('VisualizarChat').style.display = 'none';
+				document.getElementById('excluirChat').style.display = 'none';
+				document.getElementById('excluirSala').style.display = 'none';
 			}
 		
 		}
@@ -29,8 +31,9 @@
 				document.getElementById('VisualizarSala').style.display = 'none';
 				document.getElementById('CriarChat').style.display = 'none';
 				document.getElementById('VisualizarChat').style.display = 'none';
+				document.getElementById('excluirChat').style.display = 'none';
+				document.getElementById('excluirSala').style.display = 'none';
 			}
-		
 		}
 		function AtivaBuscarSalas(el) {
 			var display = document.getElementById(el).style.display;
@@ -42,6 +45,8 @@
 				document.getElementById('CriarChat').style.display = 'none';
 				document.getElementById('VisualizarChat').style.display = 'none';
 				document.getElementById('VisualizarChat').style.display = 'none';
+				document.getElementById('excluirChat').style.display = 'none';
+				document.getElementById('excluirSala').style.display = 'none';
 			}
 		}
 
@@ -49,8 +54,6 @@
 			if(id != 'voltar'){
 				salaSelecionada = id;
 			}
-			$.get('../Controller/format.php',{request: 'visualisarSala', id: salaSelecionada}).done(function(data){$('#VisualizarSala').html(data);});
-
 			var display = document.getElementById('VisualizarSala').style.display;
 			if(display == "none"){
 				document.getElementById('VisualizarSala').style.display = 'block';
@@ -59,11 +62,14 @@
 				document.getElementById('BuscarSalas').style.display = 'none';
 				document.getElementById('CriarChat').style.display = 'none';
 				document.getElementById('VisualizarChat').style.display = 'none';
+				document.getElementById('excluirChat').style.display = 'none';
+				document.getElementById('excluirSala').style.display = 'none';
 			}
+			$.get('../Controller/format.php',{request: 'visualisarSala', id: salaSelecionada}).done(function(data){$('#VisualizarSala').html(data);});
 		}
 
 		function AtivaVisualisarChat(id) {
-
+			chatSelecionado = id;
 			$.get('../Controller/format.php', {request:'VisualizarChat', id:id}).done(function(data){$('#VisualizarChat').html(data);});
 
 			var display = document.getElementById('VisualizarChat').style.display;
@@ -74,6 +80,8 @@
 				document.getElementById('CriarSala').style.display = 'none';
 				document.getElementById('BuscarSalas').style.display = 'none';
 				document.getElementById('VisualizarSala').style.display = 'none';
+				document.getElementById('excluirChat').style.display = 'none';
+				document.getElementById('excluirSala').style.display = 'none';
 			}
 		}
 
@@ -87,6 +95,37 @@
 				document.getElementById('BuscarSalas').style.display = 'none';
 				document.getElementById('VisualizarSala').style.display = 'none';
 				document.getElementById('VisualizarChat').style.display = 'none';
+				document.getElementById('excluirChat').style.display = 'none';
+				document.getElementById('excluirSala').style.display = 'none';
+
+			}
+		}
+		function AtivaExcluirChat() {
+
+			var display = document.getElementById('excluirChat').style.display;
+			if(display == "none"){
+				document.getElementById('excluirChat').style.display = 'block';
+				document.getElementById('SuasSalas').style.display = 'none';
+				document.getElementById('CriarSala').style.display = 'none';
+				document.getElementById('BuscarSalas').style.display = 'none';
+				document.getElementById('VisualizarSala').style.display = 'none';
+				document.getElementById('VisualizarChat').style.display = 'none';
+				document.getElementById('CriarChat').style.display = 'none';
+				document.getElementById('excluirSala').style.display = 'none';
+			}
+		}
+		function AtivaExcluirSala() {
+
+			var display = document.getElementById('excluirSala').style.display;
+			if(display == "none"){
+				document.getElementById('excluirSala').style.display = 'block';
+				document.getElementById('SuasSalas').style.display = 'none';
+				document.getElementById('CriarSala').style.display = 'none';
+				document.getElementById('BuscarSalas').style.display = 'none';
+				document.getElementById('VisualizarSala').style.display = 'none';
+				document.getElementById('VisualizarChat').style.display = 'none';
+				document.getElementById('CriarChat').style.display = 'none';
+				document.getElementById('excluirChat').style.display = 'none';
 			}
 		}
 
@@ -105,18 +144,16 @@
 		}
 
 		function criarSala(){
-			idSala = salaSelecionada;
 			nome = document.forms['formCriarSala']['nome'].value;
-						descricao = document.forms['formCriarSala']['descricao'].value;
+			descricao = document.forms['formCriarSala']['descricao'].value;
 
-			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{request:'insereSala', nome: nome, descricao: descricao}});
+			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{request:'insereSala', nome: nome, descricao: descricao}}).done(minhasSalas()).done(AtivaSuasSalas()).done(getSala());
 		}
 
 		function updateSala(id){
 			nome = document.forms['formEditarSala']['nome'].value;
 			descricao = document.forms['formEditarSala']['descricao'].value;
-			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{ request:'updateSala',id: id, nome: nome, descricao: descricao}}).done(
-			AtivaVisualizarSala('voltar'));
+			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{ request:'updateSala',id: id, nome: nome, descricao: descricao}}).done(minhasSalas()).done(AtivaSuasSalas()).done(getSala());
 		}
 
 		function updateChat(id){
@@ -126,6 +163,14 @@
 
 			$.ajax({type: 'POST',url: '../Controller/chatController.php', data:{ request:'updateChat',id: id, nome: nome,tipo: tipo ,descricao: descricao}});
 			 AtivaVisualizarSala('voltar');
+		}
+		function excluirChat(){
+			$.ajax({type: 'POST',url: '../Controller/chatController.php', data:{ request:'excluirChat',id: chatSelecionado}}).done(AtivaVisualizarSala('voltar'));
+		}
+
+		function excluirSala(){
+			id = salaSelecionada;
+			$.ajax({type: 'POST',url: '../Controller/salaController.php', data:{request:'excluirSala', id:id}}).done(minhasSalas()).done(AtivaSuasSalas()).done(getSala());
 		}
 
 		minhasSalas();
@@ -143,8 +188,8 @@
 
 				<h3>Suas Salas<h3/>
 
-				<div id="areaExibicao" style="background-color: FFFFFF; width: 95%; height: 70%;">
-					<a href="#" onclick = "AtivaVisualizarSala('VisualizarSala')"> Super Sala Super Legal<a/><br/>
+				<div id="areaExibicao" style="overflow: auto; background-color: FFFFFF; width: 95%; height: 70%;">
+					>
 				</div>
 
 			</div>
@@ -158,7 +203,7 @@
 					<button type="reset" onclick="buscaSala()"> Buscar </button>
 				</form>
 
-				<div id="areaBuscaSalas" style="background-color: FFFFFF; width: 90%; height: 75%;">
+				<div id="areaBuscaSalas" style="overflow: auto;background-color: FFFFFF; width: 90%; height: 75%;">
 					
 				</div>
 
@@ -166,29 +211,19 @@
 			
 			<div id='CriarSala' style ="display: none;">
 				<h3>Criar Sala</h3>
-				<form method="post" action="../Controller/criaSala.php">
+				<form id ='formCriarSala'>
 					Nome da nova sala <br/>
-					<input type="text" name="nome" ><br/><br/>
+					<input type="text" id='nome' name="nome" ><br/><br/>
 					Descricao<br/>
-					<textarea name="descricao" class = "textArea"></textarea><br/>
-					<input type="submit" value="Criar Sala" >
-				</form>				
+					<textarea id ='descricao' rows = 4 name="descricao" class = "textArea"></textarea><br/>
+				</form>	
+				<button onclick="criarSala()">Criar Sala</button>			
 				
 			</div>
 
 			<div id='VisualizarSala' style ="display: none;">
-				<h3>Visualizar Sala</h3>
 				
-					Nome:  <br/>
-					<input type="text" name="nome" id ="nome" value="Super Sala Super Legal"><br/><br/>
-					Descricao<br/>
-					<textarea name="descricao" class = "textArea"> Sala divertida</textarea><br/>
-					Chats
-					<div id="areaExibicaoChats" style="background-color: FFFFFF; width: 90%; height: 30%;">
-						
-	
-					</div>
-					<button>adicionar chat</button>
+				
 			</div>
 
 			<div id='VisualizarChat' style ="display: none;">
@@ -205,7 +240,7 @@
 							</tr>
 							<tr>
 								<td>Descrição:</td>
-								<td><textarea name ='descricao' class = "textArea" style=" width: 100%"></textarea></td>
+								<td><textarea rows = 4 name ='descricao' class = "textArea" style=" width: 100%"></textarea></td>
 							</tr>						
 							<tr>
 								<td>
@@ -224,6 +259,32 @@
 						
 						</table>
 					</form>
+			</div>
+			<div id='excluirChat' style ="display: none;">				
+				<h3>Excluir Chat</h3>
+				Voce tem certeza que deseja excluir seu chat?<br/>
+				Essa é uma ação irreversivel!<br/><br/>
+				<table>
+					<tr>
+						<td><button type="button" onclick="AtivaVisualizarSala('voltar')" class=botao >Cancelar</button></td>
+						<td><button class=botao  onclick="excluirChat()">Confirmar</button></td>
+
+					</tr>
+				</table>
+				
+			</div>
+			<div id='excluirSala' style ="display: none;">				
+				<h3>Excluir Sala</h3>
+				Voce tem certeza que deseja excluir sua Sala?<br/>
+				Essa é uma ação irreversivel!<br/><br/>
+				<table>
+					<tr>
+						<td><button type="button" onclick="AtivaSuasSalas()" class=botao >Cancelar</button></td>
+						<td><button class=botao  onclick="excluirSala()">Confirmar</button></td>
+
+					</tr>
+				</table>
+				
 			</div>
 
 

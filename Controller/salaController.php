@@ -1,16 +1,13 @@
 <?php
 	include("../Model/sala.php");
+	include("sessionCheker.php");
 
 		
-	function CriarSala(){
-		$nome =$_POST['nome'];
-		$descricao =  $_POST['descricao'];
+	function criarSala($nome,$descricao){
 		$novo_chat = new sala;
 		$novo_chat->__set('nome', $nome);
 		$novo_chat->__set('descricao', $descricao);
-		$result = $novo_chat ->criar();
-
-		echo $result;
+		echo $novo_chat->criar($_SESSION['id']);
 	}
 
 	function UpdateSala($id, $nome, $descricao){
@@ -23,12 +20,21 @@
 		echo $result;
 	}
 
+	function excluirSala($id){
+		$sala = new sala;
+		$sala = $sala->find($id);
+		echo $sala->excluir();
+	}
+
 	switch ($_POST['request']) {
-		case 'criarSala':
-			criarSala();
+		case 'insereSala':
+			criarSala($_POST['nome'],$_POST['descricao']);
 			break;
 		case 'updateSala':
 			UpdateSala($_POST['id'],$_POST['nome'],$_POST['descricao']);
+			break;
+		case 'excluirSala':
+			excluirSala($_POST['id']);
 			break;
 		default:
 			# code...

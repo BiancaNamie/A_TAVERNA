@@ -25,6 +25,13 @@
 
 		echo $chat->alterar();
 	}
+
+	function excluirChat($id){
+
+		$chat = new chat;
+		$chat = $chat->find($id);
+		echo $chat->excluir();
+	}
 	
 
 	switch ($_POST['request']) {
@@ -33,6 +40,9 @@
 			break;
 		case 'updateChat':
 			updateChat($_POST['id'],$_POST['nome'],$_POST['descricao'],$_POST['tipo']);
+			break;
+		case 'excluirChat':
+			excluirChat($_POST['id']);
 			break;
 		
 		default:

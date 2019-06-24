@@ -12,7 +12,7 @@
        		return $this->$atributo;
     	}
 
-    	function criar(){
+    	function criar($idu){
     		$n = $this->nome;
     		$d = $this->descricao;
 
@@ -20,15 +20,44 @@
     		$insert = "INSERT INTO sala VALUES (DEFAULT, '$n', '$d')";
             $generatedId = "SELECT LAST_INSERT_ID()";
 
-    		if(mysql_query($conn, $insert)){
-    			echo "Erro interno";
-    		}
-    		else{
+    		if(mysqli_query($conn, $insert)){
     			echo "Sala criada com sucesso";
     		}
+    		else{
+    			echo "Erro interno ".$conn->error;
+    		}
 
-            $ln =mysqli_fetch_array(mysql_query($conn, $generatedId));
+            $r = mysqli_query($conn, $generatedId);
+            if($r){
+                echo 'ultimo id recuperado';
+            }
+            else{
+                echo 'Erro interno '.$conn->error;
+            }
+            $ln = mysqli_fetch_array($r);
+
             $lastId = $ln[0];
+            $participa = "INSERT INTO participa VALUES ($idu, $lastId, 'ADM')";
+
+            if(mysqli_query($conn, $participa)){
+                echo "aprticipa criado com sucesso";
+            }
+            else{
+                echo "Erro interno ".$conn->error;
+            }
+
+            $insertChat = "INSERT INTO Chat VALUES (DEFAULT, '$lastId','Chat principal','NRM', 'Chat padrão de boas vindas')";
+
+            $r4 = mysqli_query($conn, $insertChat);
+
+            if($r4 == true){
+                echo "deu bom 4 ";
+            }
+            else{
+                echo "deu ruim 4 : ".$conn->error;
+            }
+
+
     		mysqli_close($conn);
             return $lastId;
     	}
@@ -49,21 +78,20 @@
             
             mysqli_close($conn);
          }
+
         function excluir(){
             $id = $this->id;
             include("../Controller/conect.php");
-            $sql="DELETE FROM sala WHERE id='$id'";
-            $executa= mysqli_query($conn,$sql);
+            $sql="DELETE FROM sala WHERE id=$id";
+            mysqli_query($conn,$sql);
             mysqli_close($conn);
-            
-            session_start();
         }
     
 
     	function find($id){
     		include("../Controller/conect.php");
 
-			$sql="SELECT * FROM sala s where id = '$id'";
+			$sql="SELECT * FROM sala s where id = $id";
 			$executa= mysqli_query($conn,$sql);
 			
 			$ln= mysqli_fetch_array($executa);
