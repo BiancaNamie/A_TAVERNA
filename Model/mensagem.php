@@ -13,6 +13,7 @@
 	    }
 
 		function criar(){
+	
 			include('../Controller/conect.php');
 
 			$idc=  $this->idChat;
@@ -29,6 +30,7 @@
 			}
 
 			mysqli_close($conn);
+			
 		}
 	}
 ?>

@@ -74,6 +74,7 @@
 			}
 			function getChat(id){
 				sala = id;
+				submenu('barraChats');
 				$.get("../Controller/format.php",{request:'chatsBarraChats', id:id}).done(function(data){$("#barraChats").html(data);}).done(getArquivo());
 			}
 			function popupSala(){
@@ -168,7 +169,7 @@
 				<div id = "repositorio">
 				</div>
 			</div>
-			<div id ="barraChats">
+			<div id ="barraChats" style="display: none">
 				<h4>Chats</h4>
 			</div>
 			<div id="corpo">
