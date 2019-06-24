@@ -91,14 +91,14 @@
 			$tipo = $ln['tipo'];
 			$i++;
 			if($tipo== 'RPG'){
-				echo"<div id='$nome' tabindex='$i' class='clicavel' onclick = exibeChatRPG('.$id.')>
+				echo"<div id='$nome' tabindex='$i' class='clicavel' onclick = exibeChatRPG('$id')>
 							$nome
 					</div><br/>";
 			}
 			else{
-				echo"<div id='$nome' tabindex='$i' class='clicavel' onclick = exibeChat('.$id.')>".
-						"$nome".
-					"</div><br/>";
+				echo"<div id='$nome' tabindex='$i' class='clicavel' onclick = exibeChat('$id')>
+						$nome
+					</div><br/>";
 			}
 
 		}

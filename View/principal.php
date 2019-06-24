@@ -30,9 +30,8 @@
 
        			if(str == 'RPG'){
        				mensagem = document.forms["envioRPG"]["mensagem"].value; 
-       			}  			
-       			
-				$.ajax({type: 'POST',url: '../Controller/mensagemController.php',data:{request: 'enviar', mensagem: mensagem, idChat: chat}}, ).done(atualizarScroll(chat));
+       			}  
+				$.ajax({type: 'POST',url: '../Controller/mensagemController.php',data:{request: 'enviar', mensagem: mensagem, idChat: chat}}).done(atualizarScroll(chat));
        		}
        		function enviaArquivo(){
        			var form = $('#formArquivo')[0];
@@ -169,7 +168,7 @@
 				</div>
 			</div>
 			<div id ="barraChats">
-				<h4>Chats</h4>Selecione uma sala
+				<h4>Chats</h4>
 			</div>
 			<div id="corpo">
 				<br/>
